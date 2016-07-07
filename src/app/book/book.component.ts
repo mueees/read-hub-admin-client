@@ -24,7 +24,7 @@ export class BookComponent implements OnInit {
 
     }
 
-    books: Book[];
+    books:Book[];
 
     ngOnInit() {
         console.log('On Init method in Book Component');
@@ -33,5 +33,12 @@ export class BookComponent implements OnInit {
         this.bookManagerService.getBooks().then(function (books) {
             me.books = books;
         });
+    }
+
+    onCreateBook(book:any) {
+        console.log('New Book was created');
+        console.log(book);
+
+        this.books.push(book);
     }
 }
