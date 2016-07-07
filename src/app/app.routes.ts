@@ -1,8 +1,13 @@
 import {provideRouter}  from '@angular/router';
-import {BooksRoutes}        from './books/books.routes';
+import {BookRoutes} from './book/book.routes';
 
 export const routes = [
-    ...BooksRoutes
+    ...BookRoutes,
+    {
+        path: '',
+        redirectTo: '/book',
+        pathMatch: 'full'
+    }
 ];
 
 export const APP_ROUTER_PROVIDERS = [
