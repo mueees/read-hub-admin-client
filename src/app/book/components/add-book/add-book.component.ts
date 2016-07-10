@@ -3,10 +3,11 @@ import {Book} from '../../book.ts';
 
 @Component({
     selector: 'add-book',
-    template: require('./add-book.component.html')
+    template: require('./add-book.component.html'),
+    styles: [require('./add-book.scss')]
 })
 export class AddBookComponent {
-    @Output() notify:EventEmitter = new EventEmitter();
+    @Output() notify:EventEmitter<any> = new EventEmitter(); 
 
     book:Book;
 
@@ -15,7 +16,7 @@ export class AddBookComponent {
     }
 
     onCreate() {
-        this.notify.emit(new Book(this.book));
+        this.notify.emit(this.book);
         this.resetForm();
     }
 

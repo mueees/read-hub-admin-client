@@ -11,5 +11,5 @@ export class BookListComponent {
     }
 
     @Input()
-    books:Book[];
+    books:Array<Book>;
 }

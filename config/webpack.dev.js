@@ -19,6 +19,20 @@ module.exports = webpackMerge(commonConfig, {
 
     devServer: {
         historyApiFallback: true,
-        stats: 'minimal'
+        noInfo: false,
+        quiet: false,
+        stats: {colors: true},
+
+        proxy: [{
+            path: '/api/*',
+            target: {
+                "host": "hub.mue.in.ua",
+                "protocol": 'http:',
+                "port": 80
+            },
+            ignorePath: false,
+            changeOrigin: true,
+            secure: false
+        }]
     }
 });

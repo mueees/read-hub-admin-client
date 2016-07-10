@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { OnInit } from '@angular/core';
+import {OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
 import {Book} from './book.ts';
@@ -25,20 +25,16 @@ export class BookComponent implements OnInit {
     }
 
     books:Book[];
+    errorMessage:any;
 
     ngOnInit() {
-        console.log('On Init method in Book Component');
-        let me = this;
-
-        this.bookManagerService.getBooks().then(function (books) {
-            me.books = books;
-        });
+        this.bookManagerService.getBooks()
+            .subscribe(
+                books => this.books = books,
+                error => this.errorMessage = <any>error);
     }
 
     onCreateBook(book:any) {
-        console.log('New Book was created');
-        console.log(book);
-
         this.books.push(book);
     }
 }
