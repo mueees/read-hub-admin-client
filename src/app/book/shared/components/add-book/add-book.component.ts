@@ -1,5 +1,6 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {Book} from '../../../book.ts';
+import {BookManagerService} from '../../book-manager/book-manager.service';
 
 @Component({
     selector: 'add-book',
@@ -11,13 +12,20 @@ export class AddBookComponent {
 
     book:Book;
 
-    constructor() {
+    constructor(private bookManagerService:BookManagerService) {
         this.resetForm();
     }
 
     onCreate() {
-        this.notify.emit(this.book);
-        this.resetForm();
+        var me = this;
+
+        this.bookManagerService.create(this.book)
+            .subscribe(function (book:Book) {
+                me.notify.emit(book);
+                me.resetForm();
+            }, function () {
+                console.log('Cannot create book');
+            });
     }
 
     resetForm() {

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Book} from '../book.ts';
 import {AddBookComponent} from '../shared/components/add-book/add-book.component.ts';
@@ -10,13 +11,12 @@ import {AddBookComponent} from '../shared/components/add-book/add-book.component
         AddBookComponent
     ]
 })
-export class AddBookRouteComponent implements OnInit {
-    constructor() {
+export class AddBookRouteComponent {
+    constructor(private router:Router) {
 
     }
 
-    onCreateBook(data:any) {
-        console.log('New Book was created');
-        console.log(data);
+    onCreateBook(data:Book) {
+        this.router.navigate(['/books']);
     }
 }

@@ -2,10 +2,13 @@
 
 <div class="list-group">
     <div class="list-group-item" *ngFor="let book of books">
-        <h4 class="list-group-item-heading">{{book.title}}</h4>
-
-        <p class="list-group-item-text">
-            Price: {{book.price}}
-        </p>
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="list-group-item-heading">{{book.title}}</h4>
+            </div>
+            <div class="col-md-2">
+                <button (click)="onDelete(book)" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
     </div>
 </div>

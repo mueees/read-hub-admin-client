@@ -9,9 +9,6 @@ import {BookManagerService} from '../shared/book-manager/book-manager.service.ts
     template: require('./book-list-route.component.html'),
     directives: [
         BookListComponent
-    ],
-    providers: [
-        BookManagerService
     ]
 })
 export class BookListRouteComponent implements OnInit {
@@ -24,7 +21,6 @@ export class BookListRouteComponent implements OnInit {
     ngOnInit() {
         this.bookManagerService.getBooks()
             .subscribe(
-                books => this.books = books,
-                error => this.errorMessage = <any>error);
+                books => this.books = books);
     }
 }

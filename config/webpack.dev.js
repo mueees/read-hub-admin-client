@@ -34,9 +34,9 @@ module.exports = webpackMerge(commonConfig, {
         proxy: [{
             path: '/api/*',
             target: {
-                "host": "hub.mue.in.ua",
+                "host": /*"localhost",*/ "hub.mue.in.ua",
                 "protocol": 'http:',
-                "port": 80
+                "port": /*20000*/  80
             },
             ignorePath: false,
             changeOrigin: true,
