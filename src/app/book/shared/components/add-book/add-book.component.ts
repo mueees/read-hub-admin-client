@@ -1,5 +1,5 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import {Book} from '../../book.ts';
+import {Book} from '../../../book.ts';
 
 @Component({
     selector: 'add-book',
@@ -7,7 +7,7 @@ import {Book} from '../../book.ts';
     styles: [require('./add-book.scss')]
 })
 export class AddBookComponent {
-    @Output() notify:EventEmitter<any> = new EventEmitter(); 
+    @Output() notify:EventEmitter<any> = new EventEmitter();
 
     book:Book;
 

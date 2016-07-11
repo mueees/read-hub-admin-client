@@ -18,11 +18,13 @@ module.exports = {
         loaders: [
             {
                 test: /\.ts$/,
-                loader: 'ts'
+                loader: 'ts',
+                exclude: /\/node_modules\//
             },
             {
                 test: /\.html$/,
-                loader: 'html'
+                loader: 'html',
+                exclude: /\/node_modules\//
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,

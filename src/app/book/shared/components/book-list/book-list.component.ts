@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Book} from '../../book.ts';
+import {Book} from '../../../book.ts';
 
 @Component({
     selector: 'book-list',

@@ -2,15 +2,16 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable}     from 'rxjs/Observable';
 
-import {BOOKS} from './books-mock.ts';
-import {Book} from '../book.ts';
+import {Book} from '../../book.ts';
+import { getHost } from '../../../request/request.ts';
 
 @Injectable()
 export class BookManagerService {
     constructor(private http:Http) {
+
     }
 
-    private booksUrl = '/api/read-hub/books';  // URL to web API
+    private booksUrl = getHost() + '/api/read-hub/books';
 
     getBooks():Observable<Book[]> {
         return this.http.get(this.booksUrl)
@@ -26,7 +27,7 @@ export class BookManagerService {
             return new Book({
                 id: book.id || '',
                 title: book.title || 'Empty title',
-                price: book.price || -100
+                price: book.price || 0
             });
         });
 
@@ -35,8 +36,6 @@ export class BookManagerService {
     private handleError(error:any) {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-
-        console.error(errMsg); // log to console instead
 
         return Observable.throw(errMsg);
     }

@@ -1,9 +1,27 @@
 import {RouterConfig}          from '@angular/router';
 import {BookComponent}     from './book.component.ts';
+import {BookListRouteComponent}     from './book-list/book-list-route.component.ts';
+import {AddBookRouteComponent}     from './add-book/add-book-route.component.ts';
 
 export const BookRoutes:RouterConfig = [
     {
-        path: 'book',
-        component: BookComponent
+        path: 'books',
+        useAsDefault: true,
+        component: BookComponent,
+        children: [
+            {
+                path: 'add',
+                component: AddBookRouteComponent
+            },
+            {
+                path: '',
+                component: BookListRouteComponent
+            }
+        ]
+    },
+    {
+        path: '',
+        redirectTo: '/books',
+        pathMatch: 'full'
     }
 ];

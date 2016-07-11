@@ -1,0 +1,11 @@
+<h3>Book List</h3>
+
+<div class="list-group">
+    <div class="list-group-item" *ngFor="let book of books">
+        <h4 class="list-group-item-heading">{{book.title}}</h4>
+
+        <p class="list-group-item-text">
+            Price: {{book.price}}
+        </p>
+    </div>
+</div>

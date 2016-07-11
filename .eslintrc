@@ -1,0 +1,127 @@
+{
+  // top lvl config
+  "root": true,
+  // use recommended rules
+  "extends": "eslint:recommended",
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jquery": true
+  },
+
+  // global variables
+  "globals": {
+    "rx": true,
+    "angular": true,
+    "_": true,
+    "joint": true,
+    "Backbone": true,
+    "moment": true,
+
+    // for tests
+    "inject": true
+  },
+
+  "rules": {
+    //// Best Practices
+    "no-console": ["error", { "allow": ["warn", "error"] }], // disallow the use of console
+    "no-unused-vars": ["off"], // Disallow Unused Variables
+    "consistent-return": ["off"], // always or never specify values
+    "valid-jsdoc": ["off"], // enforce valid JSDoc comments
+    "accessor-pairs": ["warn"], // Enforces getter/setter pairs in objects
+    "array-callback-return": ["warn"], // Enforces return statements in callbacks of array’s methods
+    "curly": ["error", "all"], // Require Following Curly Brace Conventions
+    "dot-location": ["error", "property"], // Enforce newline before and after dot
+    "dot-notation": ["error"], // Require Dot Notation
+    "eqeqeq": ["warn", "smart"], // Require === and !==
+    "no-alert": ["error"], // Disallow Use of Alert
+    "no-caller": ["error"], // Disallow Use of caller/callee
+    "no-empty": ["warn", {"allowEmptyCatch": true}], // disallow empty block statements
+    "no-case-declarations": ["error"], // Disallow lexical declarations in case/default clauses
+    "no-empty-function": ["error"], // Disallow empty functions
+    "no-eq-null": ["error"], // Disallow Null Comparisons
+    "no-eval": ["error"], // Disallow eval()
+    "no-extend-native": ["error"], // Disallow Extending of Native Objects
+    "no-extra-bind": ["error"], // Disallow unnecessary function binding
+    "no-fallthrough": ["error"], // Disallow Case Statement Fallthrough
+    "no-floating-decimal": ["error"], // Disallow Floating Decimals
+    "no-implicit-coercion": ["error"], // Disallow the type conversion with shorter notations
+    "no-implicit-globals": ["error"], // Disallow var and Named Functions in Global Scope
+    "no-labels": ["error"], // Disallow Labeled Statements
+    "no-iterator": ["error"], // Disallow Iterator
+    "no-implied-eval": ["error"], // Disallow Implied eval()
+    "no-invalid-this": ["error"], // Disallow this keywords outside of classes or class-like objects
+    "no-lone-blocks": ["error"], // Disallow Unnecessary Nested Blocks
+    "no-loop-func": ["error"], // Disallow Functions in Loops
+    "no-magic-numbers": ["off",  {"ignoreArrayIndexes": true}], // Disallow Magic Numbers
+    "no-multi-spaces": ["error"], // Disallow multiple spaces
+    "no-multi-str": ["error"], // Disallow Multiline Strings
+    "no-native-reassign": ["error"], // Disallow Reassignment of Native Objects
+    "no-new": ["warn"], // Disallow new For Side Effects
+    "no-new-func": ["error"], // Disallow Function Constructor
+    "no-new-wrappers": ["error"], // Disallow Primitive Wrapper Instances
+    "no-proto": ["error"], // Disallow Use of __proto__
+    "no-return-assign": ["error"], // Disallow Assignment in return Statement
+    "no-script-url": ["warn"], // Disallow Script URLs
+    "no-self-compare": ["error"], // Disallow Self Compare
+    "no-sequences": ["error"], // Disallow Use of the Comma Operator
+    "no-throw-literal": ["error"], // Restrict what can be thrown as an exception
+    "no-unmodified-loop-condition": ["error"], // Disallow unmodified conditions of loops
+    "no-unused-expressions": ["error"], // Disallow Unused Expressions
+    "no-useless-call": ["error"], // Disallow unnecessary .call() and .apply()
+    "no-useless-concat": ["error"], // Disallow unnecessary concatenation of strings
+    "no-useless-escape": ["error"], // Disallow unnecessary escape usage
+    "no-void": ["error"], // Disallow use of the void operator
+    "no-with": ["error"], // disallow with statements
+    "radix": ["error"], // Require Radix Parameter
+    "wrap-iife": ["error", "inside"], // Require IIFEs to be Wrapped
+    "strict": ["off"],
+
+    /// Stylistic Issues
+    "array-bracket-spacing": ["error", "never"], // Disallow or enforce spaces inside of brackets
+    "block-spacing": ["error", "always"], // Disallow or enforce spaces inside of brackets
+    "brace-style": ["error", "1tbs"], // Require Brace Style
+    "camelcase": ["error", { "properties": "never" }], // Require Camelcase
+    "comma-dangle": ["error"], // require or disallow trailing commas
+    "comma-spacing": ["error"], // Enforces spacing around commas
+    "comma-style": ["error"], // Comma style
+    "computed-property-spacing": ["error"], // Disallow or enforce spaces inside of computed properties
+    "consistent-this": ["error", "self"], // Require Consistent This
+    "func-style": ["warn", "declaration"], // enforce the consistent use of either function declarations or expressions
+    "indent": ["error", 4, {"SwitchCase": 1}], // enforce consistent indentation
+    "key-spacing": ["error"], // Enforce minimum and maximum identifier lengths
+    "keyword-spacing": ["error"], // enforce consistent spacing before and after keywords
+    "lines-around-comment": ["error"], // require empty lines around comments
+    "max-len": ["error", 120], // require empty lines around comments
+    "max-lines": ["error", 300], // enforce a maximum file length
+    "max-statements": ["warn"], // enforce a maximum number of statements allowed in function blocks
+    "max-statements-per-line": ["error"], // enforce a maximum number of statements allowed per line
+    "new-cap": ["error"], // require constructor function names to begin with a capital letter
+    "new-parens": ["error"], // require parentheses when invoking a constructor with no arguments
+    "newline-after-var": ["error"], // require or disallow an empty line after var declarations
+    "newline-before-return": ["error"], // require an empty line before return statements
+    "newline-per-chained-call": ["error", {"ignoreChainWithDepth": 3}], // require a newline after each call in a method chain
+    "no-array-constructor": ["error"], // require a newline after each call in a method chain
+    "no-bitwise": ["error"], // disallow bitwise operators
+
+    // not discussed
+    "no-lonely-if": ["warn"], // disallow if statements as the only statement in else blocks
+    "no-multiple-empty-lines": ["warn"], // disallow multiple empty lines
+    "no-nested-ternary": ["warn"], // disallow nested ternary expressions
+    "no-new-object": ["warn"], // disallow Object constructors
+    "no-spaced-func": ["warn"], // disallow spacing between function identifiers and their applications
+    "no-unneeded-ternary": ["warn"], // Disallow conditional expressions that can be expressed with simpler constructs
+    "no-trailing-spaces": ["warn"], // Disallow trailing spaces at the end of lines
+    "no-whitespace-before-property": ["warn"], // Disallow whitespace before properties
+    "object-curly-spacing": ["warn", "never"], // Disallow or enforce spaces inside of curly braces in objects
+    "semi": ["warn", "always"], // Enforce or Disallow Semicolons
+    "semi-spacing": ["warn"], // Enforce spacing before and after semicolons
+    "space-in-parens": ["warn"], // Disallow or enforce spaces inside of parentheses
+    "space-infix-ops": ["warn"], // Require Spaces Around Infix Operators
+    "space-before-blocks": ["warn"], // Require Or Disallow Space Before Blocks
+    "operator-linebreak": ["off"], // Operator Linebreak
+    "space-before-function-paren": ["warn", {"anonymous": "always", "named": "never"}] // Require a space before function parenthesis
+  }
+}

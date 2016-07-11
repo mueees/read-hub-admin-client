@@ -1,5 +1,17 @@
-<h2>Book Feature</h2>
+<nav>
+    <ul class="nav nav-tabs">
+        <li>
+            <a [routerLink]="['/books']">Books</a>
+        </li>
+        <li>
+            <a [routerLink]="['/books/add']">Add book</a>
+        </li>
+    </ul>
+</nav>
+
+<!--
 <add-book (notify)="onCreateBook($event)"></add-book>
 <book-list [books]="books"></book-list>
+-->
 
-<route-outlet></route-outlet>
+<router-outlet></router-outlet>
