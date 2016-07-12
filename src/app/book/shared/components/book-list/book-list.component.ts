@@ -1,11 +1,13 @@
 import {Component, Input} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 import {Book} from '../../../book.ts';
 import {BookManagerService} from '../../book-manager/book-manager.service';
 
 @Component({
     selector: 'book-list',
-    template: require('./book-list.component.html')
+    template: require('./book-list.component.html'),
+    directives: [ROUTER_DIRECTIVES]
 })
 export class BookListComponent {
     constructor(private bookManagerService:BookManagerService) {

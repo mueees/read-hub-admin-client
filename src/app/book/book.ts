@@ -21,7 +21,7 @@ export class Book {
         this.description = book.description || '';
         this.promo = book.promo || [];
         this.cover = book.cover || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
-        this.binding = book.cover || 'soft';
+        this.binding = book.binding || 'hard';
         this.language = book.language || 'en';
         this.pages = book.pages || 0;
         this.publisher = book.publisher || '';

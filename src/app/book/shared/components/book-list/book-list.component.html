@@ -4,7 +4,16 @@
     <div class="list-group-item" *ngFor="let book of books">
         <div class="row">
             <div class="col-md-10">
-                <h4 class="list-group-item-heading">{{book.title}}</h4>
+                <div class="row">
+                    <div class="col-md-2">
+                        <img width="80" src="{{book.cover}}"/>
+                    </div>
+                    <div class="col-md-10">
+                        <a [routerLink]="['/books/edit', book._id ]">
+                            <h4 class="list-group-item-heading">{{book.title}}</h4>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="col-md-2">
                 <button (click)="onDelete(book)" class="btn btn-danger">Delete</button>

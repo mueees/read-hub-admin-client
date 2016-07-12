@@ -25,6 +25,21 @@ export class BookManagerService {
             .catch(this.handleError);
     }
 
+    getBook(id):Observable<Book> {
+        return this.http.get(this.booksUrl + '/' + id)
+            .map(this.extractBookData)
+            .catch(this.handleError);
+    }
+
+    editBook(book:Book):Observable<any> {
+        if (!book._id) {
+            return Observable.throw('Cannot find id');
+        } else {
+            return this.http.post(this.booksUrl + '/' + book._id, book)
+                .catch(this.handleError);
+        }
+    }
+
     getBooks():Observable<Book[]> {
         return this.http.get(this.booksUrl)
             .map(this.extractData)
@@ -34,6 +49,10 @@ export class BookManagerService {
     deleteBook(id):Observable {
         return this.http.delete(this.booksUrl + id)
             .catch(this.handleError);
+    }
+
+    private extractBookData(res:Response) {
+        return new Book(res.json());
     }
 
     private extractNewBookData(res:Response) {

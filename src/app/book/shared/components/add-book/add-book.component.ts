@@ -11,6 +11,9 @@ export class AddBookComponent {
     @Output() notify:EventEmitter<any> = new EventEmitter();
 
     book:Book;
+    
+    private bindingList = ['soft', 'hard'];
+    private languageList = ['en', 'ru', 'ua'];
 
     constructor(private bookManagerService:BookManagerService) {
         this.resetForm();
