@@ -11,12 +11,36 @@ export class AddBookComponent {
     @Output() notify:EventEmitter<any> = new EventEmitter();
 
     book:Book;
-    
+
     private bindingList = ['soft', 'hard'];
     private languageList = ['en', 'ru', 'ua'];
 
     constructor(private bookManagerService:BookManagerService) {
         this.resetForm();
+    }
+
+    addAuthor() {
+        this.book.authors.push({
+            name: ''
+        });
+    }
+
+    deleteAuthor(author) {
+        _.remove(this.book.authors, {
+            name: author.name
+        });
+    }
+
+    addQuote() {
+        this.book.quotes.push({
+            text: ''
+        });
+    }
+
+    deleteQuote(quote) {
+        _.remove(this.book.quotes, {
+            text: quote.text
+        });
     }
 
     onCreate() {

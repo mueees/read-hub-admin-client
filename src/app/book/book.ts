@@ -2,7 +2,7 @@ export class Book {
     _id:string;
     title:string;
     description:string;
-    promo:Array<string>;
+
     binding:string;
     cover:string; // image
     language:string;
@@ -10,7 +10,9 @@ export class Book {
     publisher:string;
     create_data:Date;
     published_data:Date;
-    authors:Array<string>;
+
+    quotes:Array<{}>;
+    authors:Array<{}>;
 
     constructor(book:any) {
         if (book._id) {
@@ -19,7 +21,7 @@ export class Book {
 
         this.title = book.title || '';
         this.description = book.description || '';
-        this.promo = book.promo || [];
+        this.quotes = book.quotes || [];
         this.cover = book.cover || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
         this.binding = book.binding || 'hard';
         this.language = book.language || 'en';

@@ -21,6 +21,30 @@ export class EditBookComponent {
 
     }
 
+    addAuthor() {
+        this.book.authors.push({
+            name: ''
+        });
+    }
+
+    deleteAuthor(author) {
+        _.remove(this.book.authors, {
+            name: author.name
+        });
+    }
+
+    addQuote() {
+        this.book.quotes.push({
+            text: ''
+        });
+    }
+
+    deleteQuote(quote) {
+        _.remove(this.book.quotes, {
+            text: quote.text
+        });
+    }
+
     onSave() {
         var me = this;
 

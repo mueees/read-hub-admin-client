@@ -12,7 +12,9 @@
                 <label>
                     Description
                 </label>
-                <input class="form-control" type="text" name="description" [(ngModel)]='book.description'/>
+                <textarea class="form-control" type="text" name="description" [(ngModel)]='book.description'>
+
+                </textarea>
             </div>
             <div class="form-group">
                 <div class="row">
@@ -48,6 +50,22 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <button (click)="addQuote()" type="button" class="btn btn-link">Add quote</button>
+                </div>
+                <div class="form-group" *ngFor="let quote of book.quotes">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input placeholder="Quote" class="form-control" [ngModelOptions]="{standalone: true}" type="text"
+                                   [(ngModel)]="quote.text">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" (click)="deleteQuote(quote)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
@@ -61,6 +79,22 @@
                     </div>
                     <div class="col-md-9">
                         <input class="form-control" type="text" name="cover" [(ngModel)]='book.cover'/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <button (click)="addAuthor()" type="button" class="btn btn-link">Add author</button>
+                </div>
+                <div class="form-group" *ngFor="let author of book.authors">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input placeholder="Author" class="form-control" [ngModelOptions]="{standalone: true}" type="text"
+                                   [(ngModel)]="author.name">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" (click)="deleteAuthor(author)">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
