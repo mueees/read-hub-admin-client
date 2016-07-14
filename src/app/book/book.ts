@@ -21,7 +21,6 @@ export class Book {
 
         this.title = book.title || '';
         this.description = book.description || '';
-        this.quotes = book.quotes || [];
         this.cover = book.cover || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
         this.binding = book.binding || 'hard';
         this.language = book.language || 'en';
@@ -29,6 +28,7 @@ export class Book {
         this.publisher = book.publisher || '';
         this.create_data = book.create_data || new Date();
         this.published_data = book.published_data || new Date();
-        this.authors = book.authors || [];
+        this.authors = book.authors || [{name: ''}];
+        this.quotes = book.quotes || [{text: ''}];
     }
 }

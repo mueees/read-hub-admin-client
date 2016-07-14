@@ -3,12 +3,14 @@ import {BookComponent}     from './book.component.ts';
 import {BookListRouteComponent}     from './book-list/book-list-route.component.ts';
 import {AddBookRouteComponent}     from './add-book/add-book-route.component.ts';
 import {EditBookRouteComponent}     from './edit-book/edit-book-route.component.ts';
+import {AuthGuard} from '../security/index.ts';
 
 export const BookRoutes:RouterConfig = [
     {
         path: 'books',
         useAsDefault: true,
         component: BookComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'add',
