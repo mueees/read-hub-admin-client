@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
@@ -17,7 +16,7 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-        new ExtractTextPlugin('[name].css'),
+        new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV)
@@ -34,9 +33,9 @@ module.exports = webpackMerge(commonConfig, {
         proxy: [{
             path: '/api/*',
             target: {
-                "host": /*"localhost",*/ "hub.mue.in.ua",
-                "protocol": 'http:',
-                "port": /*20000*/  80
+                'host': "hub.mue.in.ua",
+                'protocol': 'http:',
+                'port': 80
             },
             ignorePath: false,
             changeOrigin: true,
