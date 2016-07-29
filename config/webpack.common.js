@@ -10,6 +10,8 @@ module.exports = {
     entry: {
         app: './app',
 
+        vendor: './vendor',
+
         // Set up an ES6-ish environment
         polyfill: 'babel-polyfill'
     },
@@ -34,6 +36,19 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: 'raw'
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            {
+                test: /\.scss/,
+                include: helpers.root('src', 'app'),
+                loaders: ['raw', 'sass']
+            },
+            {
+                test: /\.(svg|jpg|png|ttf|eot|woff|woff2)$/,
+                loader: 'file?name=[path][name].[ext]'
             }
         ]
     },

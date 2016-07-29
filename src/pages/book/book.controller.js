@@ -1,4 +1,4 @@
-export default class HomeController {
+export default class BookController {
     constructor() {
         this.name = 'World';
     }

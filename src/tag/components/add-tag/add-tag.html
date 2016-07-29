@@ -1,0 +1,13 @@
+<form name="readAddTagForm">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" ng-model="tag.name" class="form-control" placeholder="Tag name" required>
+        </div>
+
+        <div class="col-md-9">
+            <button ng-disabled="readAddTagForm.$invalid" ng-click="tag.create()" type="submit" class="btn btn-primary">
+                Create
+            </button>
+        </div>
+    </div>
+</form>
