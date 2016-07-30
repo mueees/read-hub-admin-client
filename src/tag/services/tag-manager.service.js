@@ -1,7 +1,9 @@
-function TagManagerService(Restangular) {
+function TagManagerService(ReadHubResource) {
+    var TagResource = ReadHubResource.withConfig(function (RestangularConfigurer) {});
+
     return {
         create: function (tagName) {
-            var tag = Restangular.one('http://hub.mue.in.ua/api/read-hub/tag');
+            var tag = TagResource.one('/read-hub/tags');
 
             tag.name = tagName;
 
@@ -10,6 +12,6 @@ function TagManagerService(Restangular) {
     }
 }
 
-TagManagerService.$inject = ['Restangular'];
+TagManagerService.$inject = ['ReadHubResource'];
 
 export default TagManagerService;

@@ -8,9 +8,9 @@ module.exports = {
     context: helpers.root('src'),
 
     entry: {
-        app: './app',
-
         vendor: './vendor',
+        
+        app: './app',
 
         // Set up an ES6-ish environment
         polyfill: 'babel-polyfill'
