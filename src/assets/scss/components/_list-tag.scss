@@ -1,0 +1,18 @@
+read-list-tag {
+  p {
+    margin: 0;
+  }
+
+  .readListTag-item {
+    padding: 10px 0;
+  }
+
+  .readListTag-edit-container {
+    display: flex;
+
+    input{
+      margin-left: 15px;
+      margin-right: 5px;
+    }
+  }
+}
