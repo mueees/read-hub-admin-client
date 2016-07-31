@@ -38,13 +38,13 @@ module.exports = {
                 loader: 'raw'
             },
             {
-                test: /\.css$/,
-                loader: 'style!css'
+                test: /\.scss/,
+                include: helpers.root('src'),
+                loader: 'style!css!sass'
             },
             {
-                test: /\.scss/,
-                include: helpers.root('src', 'app'),
-                loaders: ['raw', 'sass']
+                test: /\.css$/,
+                loader: 'style!css'
             },
             {
                 test: /\.(svg|jpg|png|ttf|eot|woff|woff2)$/,

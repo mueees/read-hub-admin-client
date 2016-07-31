@@ -1,0 +1,10 @@
+<div ng-if="!vm.tags.length">
+    No tags
+</div>
+
+<div ng-if="vm.tags.length" class="list-group">
+    <a ng-repeat="tag in vm.tags" href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">{{tag.name}}</h4>
+        <p ng-if="tag.description" class="list-group-item-text">{{tag.description}}</p>
+    </a>
+</div>

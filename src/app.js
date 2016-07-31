@@ -5,6 +5,8 @@ import uirouter from 'angular-ui-router';
 
 import routing from './app.config';
 
+import './assets/scss/index.scss';
+
 // modules
 import environment from './environment/environment.module';
 
