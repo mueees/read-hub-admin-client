@@ -18,7 +18,7 @@ module.exports = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app']
+            name: ['app', 'vendor', 'polyfill']
         }),
 
         new HtmlWebpackPlugin({
