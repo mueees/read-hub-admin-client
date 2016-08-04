@@ -2,7 +2,7 @@ function routing($urlRouterProvider, ReadHubResourceProvider, readEnvironmentPro
     $urlRouterProvider.otherwise('/read/book');
 
     if (readEnvironmentProvider.isDevelopment()) {
-        ReadHubResourceProvider.setBaseUrl('http://localhost:20000/api');
+        // ReadHubResourceProvider.setBaseUrl('http://localhost:20000/api');
     }
 }
 

@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs/Observable';
 
-class AddTagController {
-    constructor(readTagManager) {
-        Object.assign(this, {readTagManager});
+class AddCategoryController {
+    constructor(readCategoryManager) {
+        Object.assign(this, {readCategoryManager});
 
-        this.tag = {};
+        this.category = {};
 
         this.initializeApi();
     }
@@ -30,33 +30,33 @@ class AddTagController {
     create() {
         var self = this;
 
-        this.readTagManager.create(this.tag.name, this.tag.description).then(function (tagResource) {
-            Object.assign(self.tag, tagResource.plain());
+        this.readCategoryManager.create(this.category.name, this.category.description).then(function (categoryResource) {
+            Object.assign(self.category, categoryResource.plain());
 
-            self.createStreamObserver.next(self.tag);
+            self.createStreamObserver.next(self.category);
 
             self.resetForm();
         });
     }
 
     resetForm() {
-        this.tag = {};
+        this.category = {};
     }
 }
 
-function AddTagDirective() {
+function AddCategoryDirective() {
     return {
         restrict: 'E',
-        template: require('./add-tag.html'),
+        template: require('./add-category.html'),
         scope: {
             readConfiguration: '='
         },
         bindToController: true,
-        controller: AddTagController,
+        controller: AddCategoryController,
         controllerAs: 'vm'
     }
 }
 
-AddTagDirective.$inject = ['readTagManager'];
+AddCategoryDirective.$inject = ['readCategoryManager'];
 
-export default AddTagDirective;
+export default AddCategoryDirective;

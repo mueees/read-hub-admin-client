@@ -1,4 +1,4 @@
-export default class BookController {
+class BookController {
     constructor() {
         this.name = 'World';
     }
@@ -7,3 +7,5 @@ export default class BookController {
         this.name = 'angular-tips';
     }
 }
+
+export default BookController;

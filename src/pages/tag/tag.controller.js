@@ -1,11 +1,10 @@
-import Rx from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 class TagPageController {
     constructor(readTagManager) {
         let self = this;
 
         this.addTagConfiguration = {
-            placeholder: 'test',
             onRegisterApi: function (addTagApi) {
                 addTagApi.createStream.subscribe(function (tag) {
                     self.tagStreamObserver.next(tag);
@@ -13,7 +12,7 @@ class TagPageController {
             }
         };
 
-        this.tagStream = Rx.Observable.create(function (observer) {
+        this.tagStream = Observable.create(function (observer) {
             self.tagStreamObserver = observer;
         });
 
