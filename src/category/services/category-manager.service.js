@@ -4,7 +4,7 @@ function CategoryManagerService(ReadHubResource) {
 
     return {
         create: function (name, description, parentId) {
-            var category = CategoryResource.one('/read-hub/category');
+            var category = CategoryResource.one('/read-hub/categories');
 
             category.name = name;
             category.tagDescription = description;
@@ -14,18 +14,18 @@ function CategoryManagerService(ReadHubResource) {
         },
 
         save: function (data) {
-            let category = CategoryResource.one('/read-hub/tags/' + data._id);
+            let category = CategoryResource.one('/read-hub/categories/' + data._id);
 
             Object.assign(category, data);
             return category.save();
         },
 
         delete: function (id) {
-            return CategoryResource.one('/read-hub/category', id).remove();
+            return CategoryResource.one('/read-hub/categories', id).remove();
         },
 
         getAll: function () {
-            return CategoryResource.all('/read-hub/category').getList();
+            return CategoryResource.all('/read-hub/categories').getList();
         }
     }
 }

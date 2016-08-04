@@ -1,11 +1,2 @@
-<div class="btn-group">
-    <button ng-click="vm.tab = 'list'" type="button" class="btn btn-default">List Category</button>
-    <button ng-click="vm.tab = 'add'" type="button" class="btn btn-default">Add Category</button>
-</div>
-
-<div ng-if="vm.tab === 'list'">
-    <read-list-category read-configuration="vm.listCategoryConfiguration"></read-list-category>
-</div>
-<div ng-if="vm.tab === 'add'">
-    <read-add-category read-configuration="vm.addCategoryConfiguration"></read-add-category>
-</div>
+<read-add-category ng-if="vm.canShowAddCategoryComponent" read-configuration="vm.addCategoryConfiguration"></read-add-category>
+<read-list-category read-configuration="vm.listCategoryConfiguration"></read-list-category>
