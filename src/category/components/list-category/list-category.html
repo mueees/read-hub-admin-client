@@ -1,0 +1,13 @@
+<treecontrol class="tree-classic"
+             tree-model="tree"
+             on-selection="showSelected(node, selected, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
+             expanded-nodes="expandedNodes" options="treeOptions">
+    <div class="read-list-category-item">
+        <div class="read-list-category-item__preview">
+            <p>{{node.name}}</p>
+            <p>{{node.description}}</p>
+        </div>
+
+        <button class="btn btn-primary" ng-click="delete(node, $event)">Delete</button>
+    </div>
+</treecontrol>

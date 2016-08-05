@@ -1,0 +1,21 @@
+read-list-category {
+  .read-list-category-item {
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+    cursor: pointer;
+  }
+
+  treecontrol.tree-classic > ul {
+    padding-left: 0;
+  }
+
+  treecontrol ul,
+  treecontrol li {
+    list-style: none;
+  }
+
+  treecontrol.tree-classic treeitem > ul {
+    position: relative;
+    padding-left: 20px;
+  }
+}

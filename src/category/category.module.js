@@ -6,11 +6,11 @@ import AddCategoryDirective     from    './components/add-category/add-category.
 import ListCategoryDirective    from    './components/list-category/list-category.directive';
 import CategoryManagerService   from    './services/category-manager.service';
 
-const category = angular.module('read.category', ['restangular', readResource]);
+const category = angular.module('read.category', ['restangular', 'treeControl', readResource]);
 
 category
     .service('readCategoryManager', CategoryManagerService)
-    /*.directive('readListTag', ListTagDirective)*/
+    .directive('readListCategory', ListCategoryDirective)
     .directive('readAddCategory', AddCategoryDirective);
 
 export default category.name;

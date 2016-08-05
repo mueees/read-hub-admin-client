@@ -1,14 +1,16 @@
 <button ng-show="!showForm" class="btn btn-link" ng-click="showForm = true">Add Category</button>
 
-<form name="readAddCategoryForm" ng-show="showForm">
+<form name="readAddCategoryForm" ng-show="showForm" novalidate>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <input type="text" ng-model="category.name" class="form-control" placeholder="Category name" required>
+                <input type="text" name="name" ng-model="category.name" class="form-control" placeholder="Category name"
+                       required>
             </div>
 
             <div class="form-group">
-                <textarea type="text" ng-model="category.description" class="form-control" placeholder="Description">
+                <textarea type="text" name="description" ng-model="category.description" class="form-control"
+                          placeholder="Description">
                 </textarea>
             </div>
 

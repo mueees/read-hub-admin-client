@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 class CategoryPageController {
     constructor(readCategoryManager) {
         let self = this;
-        
+
         this.canShowAddCategoryComponent = false;
 
         this.categories = [];
@@ -13,7 +13,7 @@ class CategoryPageController {
 
             onRegisterApi: function (addCategoryApi) {
                 addCategoryApi.createStream.subscribe(function (category) {
-                    self.categoryStreamObserver.next(category);
+                    self.listCategoryConfiguration.categories.push(category);
                 });
             }
         };
@@ -22,13 +22,13 @@ class CategoryPageController {
             self.categoryStreamObserver = observer;
         });
 
-        this.categoryStream.subscribe(function () {
-
-        });
+        this.listCategoryConfiguration = {
+            categories: []
+        };
 
         readCategoryManager.getAll().then(function (categories) {
-            self.categories = categories.plain();
-            self.addCategoryConfiguration.categories = self.categories;
+            self.addCategoryConfiguration.categories = categories.plain();
+            self.listCategoryConfiguration.categories = categories.plain();
 
             self.canShowAddCategoryComponent = true;
         });
