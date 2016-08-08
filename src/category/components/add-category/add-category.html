@@ -14,7 +14,7 @@
                 </textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-if="readConfiguration.categories.length">
                 <select ng-model="category.parentId">
                     <option value=""></option>
                     <option ng-repeat="category in readConfiguration.categories" value="{{category._id}}">

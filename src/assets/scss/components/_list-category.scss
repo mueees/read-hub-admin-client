@@ -1,8 +1,32 @@
 read-list-category {
   .read-list-category-item {
-    padding: 10px;
+    padding: 10px 10px 10px 36px;
     border-bottom: 1px solid #cecece;
-    cursor: pointer;
+    display: flex;
+
+    &__tree-actions {
+      flex-basis: 30px;
+    }
+
+    &__preview {
+      display: flex;
+      flex-grow: 1;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__edit-action-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__edit {
+      flex-grow: 1;
+    }
+
+    &_can-expand {
+      padding-left: 0;
+    }
   }
 
   treecontrol.tree-classic > ul {

@@ -10,19 +10,61 @@ function AddCategoryDirective(readCategoryManager) {
         },
 
         controller: function ($scope) {
+            let flatCategoryList = [];
             $scope.tree = [];
 
             $scope.$watch('readConfiguration.categories', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    let clonedCategories = _.cloneDeep($scope.readConfiguration.categories);
+                    flatCategoryList = _.cloneDeep($scope.readConfiguration.categories);
 
-                    $scope.tree = buildTree(clonedCategories);
+                    rebuildTree();
                 }
             }, true);
 
-            $scope.delete = function (category, $event) {
+            $scope.onClickHandler = function ($event) {
                 $event.stopPropagation();
-                console.log(category);
+            };
+
+            $scope.collapseCategory = function (category) {
+                _.remove($scope.expandedNodes, {
+                    _id: category._id
+                });
+            };
+
+            $scope.expandCategory = function (category) {
+                if (!$scope.isCategoryExpanded(category)) {
+                    $scope.expandedNodes.push(category);
+                }
+            };
+
+            $scope.removeCategory = function (category) {
+                if (window.confirm('Are you sure?')) {
+                    _.each(getChildrenIds(category), function (removedId) {
+                        _.remove(flatCategoryList, {
+                            _id: removedId
+                        });
+                    });
+
+                    rebuildTree();
+
+                    readCategoryManager.delete(category._id);
+                }
+            };
+
+            function getChildrenIds(childCategory) {
+                let ids = [childCategory._id];
+
+                if (childCategory.children) {
+                    _.each(childCategory.children, function (category) {
+                        ids = ids.concat(getChildrenIds(category));
+                    });
+                }
+
+                return ids;
+            }
+
+            $scope.save = function (_id, name, description) {
+
             };
 
             $scope.treeOptions = {
@@ -36,20 +78,12 @@ function AddCategoryDirective(readCategoryManager) {
                 }
             };
 
-            $scope.showSelected = function (node, selected) {
-                console.log(node);
-            };
-
             function buildChildren(category, categories) {
-                var children = _.filter(categories, {
+                category.children = _.filter(categories, {
                     parentId: category._id
                 });
 
-                category.children = children;
-
-                $scope.expandedNodes = $scope.expandedNodes.concat(children);
-
-                _.each(children, function (childCategory) {
+                _.each(category.children, function (childCategory) {
                     buildChildren(childCategory, categories);
                 });
             }
@@ -66,6 +100,16 @@ function AddCategoryDirective(readCategoryManager) {
                 });
 
                 return firstLevelCategories;
+            }
+
+            function rebuildTree() {
+                $scope.tree = buildTree(flatCategoryList);
+            }
+
+            $scope.isCategoryExpanded = function (category) {
+                return Boolean(_.find($scope.expandedNodes, {
+                    _id: category._id
+                }));
             }
         }
     }

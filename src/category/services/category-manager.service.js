@@ -7,7 +7,7 @@ function CategoryManagerService(ReadHubResource) {
             var category = CategoryResource.one('/read-hub/categories');
 
             category.name = name;
-            category.tagDescription = description;
+            category.description = description;
             category.parentId = parentId;
 
             return category.put();
