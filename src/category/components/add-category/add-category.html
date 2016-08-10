@@ -1,6 +1,4 @@
-<button ng-show="!showForm" class="btn btn-link" ng-click="showForm = true">Add Category</button>
-
-<form name="readAddCategoryForm" ng-show="showForm" novalidate>
+<form name="readAddCategoryForm" novalidate>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -17,18 +15,20 @@
             <div class="form-group" ng-if="readConfiguration.categories.length">
                 <select ng-model="category.parentId">
                     <option value=""></option>
+
                     <option ng-repeat="category in readConfiguration.categories" value="{{category._id}}">
                         {{category.name}}
                     </option>
                 </select>
             </div>
 
-            <button ng-disabled="readAddCategoryForm.$invalid" ng-click="create()" type="submit"
+            <button ng-disabled="!readAddCategoryForm.$valid" ng-click="create()" type="submit"
                     class="btn btn-primary">
-                Create category
+                Create
             </button>
-
-            <button class="btn btn-link" ng-click="showForm = false">Hide form</button>
+            <button ng-click="cancel()" type="button" class="btn btn-link">
+                Cancel
+            </button>
         </div>
     </div>
 </form>

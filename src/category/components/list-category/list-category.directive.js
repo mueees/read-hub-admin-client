@@ -10,91 +10,110 @@ function AddCategoryDirective(readCategoryManager) {
         },
 
         controller: function ($scope) {
-            let flatCategoryList = [];
-            $scope.tree = [];
+            _.assign($scope, {
+                flatCategoryList: [],
+                treeCategories: [],
+
+                treeOptions: {
+                    dirSelectable: false,
+                    nodeChildren: "children",
+
+                    // allow nodes to have the same label
+                    // https://github.com/wix/angular-tree-control/issues/98
+                    equality: function (node1, node2) {
+                        return angular.equals(node1, node2);
+                    }
+                },
+
+                getCategoryConfig: function (category) {
+                    return {
+                        category: category,
+                        categories: $scope.flatCategoryList,
+
+                        getSome: function () {
+                            return 'some';
+                        }
+                    };
+                },
+
+                isCategoryExpanded: function (category) {
+                    return Boolean(_.find($scope.expandedNodes, {
+                        _id: category._id
+                    }));
+                },
+
+                collapseCategory: function (category) {
+                    _.remove($scope.expandedNodes, {
+                        _id: category._id
+                    });
+                },
+
+                expandCategory: function (category) {
+                    if (!$scope.isCategoryExpanded(category)) {
+                        $scope.expandedNodes.push(category);
+                    }
+                },
+
+                editCategory: function (category) {
+
+                },
+
+                removeCategory: function (category) {
+                    if (window.confirm('Are you sure?')) {
+                        _.each(getChildrenCategoryIds(category), function (idForRemoving) {
+                            _.remove($scope.flatCategoryList, {
+                                _id: idForRemoving
+                            });
+                        });
+
+                        rebuildTreeCategories();
+
+                        readCategoryManager.delete(category._id);
+                    }
+                },
+
+                onCategoryHandler: function ($event) {
+                    $event.stopPropagation();
+                }
+            });
 
             $scope.$watch('readConfiguration.categories', function (newValue, oldValue) {
                 if (newValue !== oldValue) {
-                    flatCategoryList = _.cloneDeep($scope.readConfiguration.categories);
+                    $scope.flatCategoryList = _.cloneDeep($scope.readConfiguration.categories);
 
-                    rebuildTree();
+                    rebuildTreeCategories();
                 }
             }, true);
 
-            $scope.onClickHandler = function ($event) {
-                $event.stopPropagation();
-            };
+            function getChildrenCategoryIds(category) {
+                let ids = [category._id];
 
-            $scope.collapseCategory = function (category) {
-                _.remove($scope.expandedNodes, {
-                    _id: category._id
-                });
-            };
-
-            $scope.expandCategory = function (category) {
-                if (!$scope.isCategoryExpanded(category)) {
-                    $scope.expandedNodes.push(category);
-                }
-            };
-
-            $scope.removeCategory = function (category) {
-                if (window.confirm('Are you sure?')) {
-                    _.each(getChildrenIds(category), function (removedId) {
-                        _.remove(flatCategoryList, {
-                            _id: removedId
-                        });
-                    });
-
-                    rebuildTree();
-
-                    readCategoryManager.delete(category._id);
-                }
-            };
-
-            function getChildrenIds(childCategory) {
-                let ids = [childCategory._id];
-
-                if (childCategory.children) {
-                    _.each(childCategory.children, function (category) {
-                        ids = ids.concat(getChildrenIds(category));
+                if (category.children) {
+                    _.each(category.children, function (category) {
+                        ids = ids.concat(getChildrenCategoryIds(category));
                     });
                 }
 
                 return ids;
             }
 
-            $scope.save = function (_id, name, description) {
-
-            };
-
-            $scope.treeOptions = {
-                dirSelectable: false,
-                nodeChildren: "children",
-
-                // allow nodes to have the same label
-                // https://github.com/wix/angular-tree-control/issues/98
-                equality: function (node1, node2) {
-                    return angular.equals(node1, node2);
-                }
-            };
-
-            function buildChildren(category, categories) {
+            function buildChildrenCategory(category, categories) {
                 category.children = _.filter(categories, {
                     parentId: category._id
                 });
 
                 _.each(category.children, function (childCategory) {
-                    buildChildren(childCategory, categories);
+                    buildChildrenCategory(childCategory, categories);
                 });
             }
 
-            function buildTree(categories) {
+            function buildTreeCategories(categories) {
                 var firstLevelCategories = _.filter(categories, function (category) {
                     return !category.parentId;
                 });
 
                 _.each(firstLevelCategories, function (firstLevelCategory) {
-                    buildChildren(firstLevelCategory, categories);
+                    buildChildrenCategory(firstLevelCategory, categories);
 
                     $scope.expandedNodes.push(firstLevelCategory);
                 });
@@ -102,14 +121,8 @@ function AddCategoryDirective(readCategoryManager) {
                 return firstLevelCategories;
             }
 
-            function rebuildTree() {
-                $scope.tree = buildTree(flatCategoryList);
-            }
-
-            $scope.isCategoryExpanded = function (category) {
-                return Boolean(_.find($scope.expandedNodes, {
-                    _id: category._id
-                }));
+            function rebuildTreeCategories() {
+                $scope.treeCategories = buildTreeCategories($scope.flatCategoryList);
             }
         }
     }

@@ -4,34 +4,34 @@ class CategoryPageController {
     constructor(readCategoryManager) {
         let self = this;
 
-        this.canShowAddCategoryComponent = false;
+        var categoryList = [];
 
-        this.categories = [];
+        readCategoryManager.getAll().then(function (categories) {
+            categoryList = categories.plain();
+
+            self.listCategoryConfiguration.categories = categories.plain();
+            self.addCategoryConfiguration.categories = categories.plain();
+        });
 
         this.addCategoryConfiguration = {
-            categories: this.categories,
+            categories: [],
 
-            onRegisterApi: function (addCategoryApi) {
-                addCategoryApi.createStream.subscribe(function (category) {
-                    self.listCategoryConfiguration.categories.push(category);
-                });
+            onCreate: function (newCategory) {
+                self.isShowAddCategory = false;
+
+                categoryList.push(newCategory);
+
+                self.listCategoryConfiguration.categories = categoryList;
+            },
+
+            onCancel: function () {
+                self.isShowAddCategory = false;
             }
         };
-
-        this.categoryStream = Observable.create(function (observer) {
-            self.categoryStreamObserver = observer;
-        });
 
         this.listCategoryConfiguration = {
             categories: []
         };
-
-        readCategoryManager.getAll().then(function (categories) {
-            self.addCategoryConfiguration.categories = categories.plain();
-            self.listCategoryConfiguration.categories = categories.plain();
-
-            self.canShowAddCategoryComponent = true;
-        });
     }
 }
 

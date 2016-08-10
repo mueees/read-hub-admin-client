@@ -8,19 +8,7 @@ read-list-category {
       flex-basis: 30px;
     }
 
-    &__preview {
-      display: flex;
-      flex-grow: 1;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &__edit-action-buttons {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &__edit {
+    &__content {
       flex-grow: 1;
     }
 

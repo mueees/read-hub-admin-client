@@ -1,0 +1,15 @@
+<div class="read-editable-category" >
+    <div class="read-editable-category__preview" ng-if="state == 'read'">
+        <read-preview-category read-configuration="previewConfiguration"></read-preview-category>
+
+        <button class="btn btn-link" ng-click="switchToEdit()">Edit</button>
+    </div>
+
+    <div class="read-editable-category__edit" ng-if="state == 'edit'">
+        <read-edit-category read-configuration="editConfiguration"></read-edit-category>
+    </div>
+
+</div>
+
+
+

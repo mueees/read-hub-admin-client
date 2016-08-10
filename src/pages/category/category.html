@@ -1,3 +1,7 @@
-<read-add-category ng-if="vm.canShowAddCategoryComponent" read-configuration="vm.addCategoryConfiguration"></read-add-category>
+<button class="btn btn-link" ng-show="!vm.isShowAddCategory" ng-click="vm.isShowAddCategory = true">Add</button>
+<read-add-category ng-if="vm.isShowAddCategory" read-configuration="vm.addCategoryConfiguration"></read-add-category>
+
+
 <br/>
+
 <read-list-category read-configuration="vm.listCategoryConfiguration"></read-list-category>

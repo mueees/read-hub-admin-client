@@ -10,45 +10,30 @@ function AddCategoryDirective(readCategoryManager) {
         },
 
         controller: function ($scope) {
-            var createStreamObserver,
-                api = {};
+            _.assign($scope, {
+                category: {},
 
-            $scope.showForm = false;
+                create: function () {
+                    readCategoryManager.create($scope.category.name, $scope.category.description, $scope.category.parentId).then(function (categoryResource) {
+                        if (_.isFunction($scope.readConfiguration.onCreate)) {
+                            $scope.readConfiguration.onCreate($scope.category);
+                        }
 
-            $scope.category = {};
+                        Object.assign($scope.category, categoryResource.plain());
 
-            Object.assign($scope, {
-                create: create
+                        resetForm();
+                    });
+                },
+
+                cancel: function () {
+                    if (_.isFunction($scope.readConfiguration.onCancel)) {
+                        $scope.readConfiguration.onCancel();
+                    }
+                }
             });
-
-            initializeApi();
-
-            function create() {
-                readCategoryManager.create($scope.category.name, $scope.category.description, $scope.category.parentId).then(function (categoryResource) {
-                    Object.assign($scope.category, categoryResource.plain());
-
-                    createStreamObserver.next($scope.category);
-
-                    resetForm();
-                });
-            }
 
             function resetForm() {
                 $scope.category = {};
-            }
-
-            function initializeApi() {
-                let createStream = Observable.create(function (observer) {
-                    createStreamObserver = observer;
-                });
-
-                Object.assign(api, {
-                    createStream: createStream
-                });
-
-                if (_.isFunction($scope.readConfiguration.onRegisterApi)) {
-                    $scope.readConfiguration.onRegisterApi(api);
-                }
             }
         }
     }
