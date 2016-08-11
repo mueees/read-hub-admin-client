@@ -7,10 +7,7 @@ class CategoryPageController {
         var categoryList = [];
 
         readCategoryManager.getAll().then(function (categories) {
-            categoryList = categories.plain();
-
-            self.listCategoryConfiguration.categories = categories.plain();
-            self.addCategoryConfiguration.categories = categories.plain();
+            onUpdateCategories(categories.plain());
         });
 
         this.addCategoryConfiguration = {
@@ -30,8 +27,35 @@ class CategoryPageController {
         };
 
         this.listCategoryConfiguration = {
-            categories: []
+            categories: [],
+
+            onDelete: function (idsForRemoving) {
+                _.each(idsForRemoving, function (idForRemoving) {
+                    _.remove(categoryList, {
+                        _id: idForRemoving
+                    });
+                });
+
+                onUpdateCategories(categoryList);
+            },
+
+            onSave: function (savedCategory) {
+                var oldCategory = _.find(categoryList, {
+                    _id: savedCategory._id
+                });
+
+                _.assign(oldCategory, savedCategory);
+
+                onUpdateCategories(categoryList);
+            }
         };
+
+        function onUpdateCategories(categories) {
+            categoryList = categories;
+
+            self.listCategoryConfiguration.categories = categories;
+            self.addCategoryConfiguration.categories = categories;
+        }
     }
 }
 

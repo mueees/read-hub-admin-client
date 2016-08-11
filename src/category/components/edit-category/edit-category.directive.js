@@ -26,11 +26,13 @@ function EditCategoryDirective(readCategoryManager) {
                 },
 
                 delete: function () {
-                    readCategoryManager.save($scope.category._id).then(function () {
-                        if (_.isFunction($scope.readConfiguration.onDelete)) {
-                            $scope.readConfiguration.onDelete($scope.category);
-                        }
-                    });
+                    if (window.confirm('Are you sure?')) {
+                        readCategoryManager.delete($scope.category._id).then(function () {
+                            if (_.isFunction($scope.readConfiguration.onDelete)) {
+                                $scope.readConfiguration.onDelete($scope.category);
+                            }
+                        });
+                    }
                 }
             });
         }

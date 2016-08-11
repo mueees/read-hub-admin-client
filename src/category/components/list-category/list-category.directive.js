@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 
-function AddCategoryDirective(readCategoryManager) {
+function AddCategoryDirective() {
     return {
         restrict: 'E',
         template: require('./list-category.html'),
@@ -16,13 +16,7 @@ function AddCategoryDirective(readCategoryManager) {
 
                 treeOptions: {
                     dirSelectable: false,
-                    nodeChildren: "children",
-
-                    // allow nodes to have the same label
-                    // https://github.com/wix/angular-tree-control/issues/98
-                    equality: function (node1, node2) {
-                        return angular.equals(node1, node2);
-                    }
+                    nodeChildren: "children"
                 },
 
                 getCategoryConfig: function (category) {
@@ -30,10 +24,39 @@ function AddCategoryDirective(readCategoryManager) {
                         category: category,
                         categories: $scope.flatCategoryList,
 
-                        getSome: function () {
-                            return 'some';
-                        }
+                        onDelete: $scope.onDelete,
+                        onSave: $scope.onSave
                     };
+                },
+
+                onDelete: function (deletedCategory) {
+                    let idsForRemoving = getChildrenCategoryIds(deletedCategory);
+
+                    _.each(idsForRemoving, function (idForRemoving) {
+                        _.remove($scope.flatCategoryList, {
+                            _id: idForRemoving
+                        });
+                    });
+
+                    rebuildTreeCategories();
+
+                    if (_.isFunction($scope.readConfiguration.onDelete)) {
+                        $scope.readConfiguration.onDelete(idsForRemoving);
+                    }
+                },
+
+                onSave: function (savedCategory) {
+                    var oldCategory = _.find($scope.flatCategoryList, {
+                        _id: savedCategory._id
+                    });
+
+                    _.assign(oldCategory, savedCategory);
+
+                    rebuildTreeCategories();
+
+                    if (_.isFunction($scope.readConfiguration.onSave)) {
+                        $scope.readConfiguration.onSave(savedCategory);
+                    }
                 },
 
                 isCategoryExpanded: function (category) {
@@ -51,24 +74,6 @@ function AddCategoryDirective(readCategoryManager) {
                 expandCategory: function (category) {
                     if (!$scope.isCategoryExpanded(category)) {
                         $scope.expandedNodes.push(category);
-                    }
-                },
-
-                editCategory: function (category) {
-
-                },
-
-                removeCategory: function (category) {
-                    if (window.confirm('Are you sure?')) {
-                        _.each(getChildrenCategoryIds(category), function (idForRemoving) {
-                            _.remove($scope.flatCategoryList, {
-                                _id: idForRemoving
-                            });
-                        });
-
-                        rebuildTreeCategories();
-
-                        readCategoryManager.delete(category._id);
                     }
                 },
 
@@ -127,7 +132,5 @@ function AddCategoryDirective(readCategoryManager) {
         }
     }
 }
-
-AddCategoryDirective.$inject = ['readCategoryManager'];
 
 export default AddCategoryDirective;

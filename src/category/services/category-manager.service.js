@@ -17,6 +17,7 @@ function CategoryManagerService(ReadHubResource) {
             let category = CategoryResource.one('/read-hub/categories/' + data._id);
 
             Object.assign(category, data);
+
             return category.save();
         },
 
