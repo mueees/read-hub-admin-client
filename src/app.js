@@ -5,6 +5,7 @@ import uirouter from 'angular-ui-router';
 
 import './assets/scss/index.scss';
 
+import run from './app.run';
 import config from './app.config';
 
 // modules
@@ -25,4 +26,4 @@ angular.module('read', [
     book,
     tag,
     category
-]).config(config);
+]).run(run).config(config);

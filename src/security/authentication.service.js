@@ -67,6 +67,4 @@ function Authentication() {
     }
 }
 
-// Authentication.$inject = ['readAuthUser'];
-
 export default Authentication;
