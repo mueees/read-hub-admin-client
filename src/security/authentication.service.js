@@ -1,7 +1,6 @@
-function Authentication(readAuthUser) {
-    function login(credentials) {
-        return readAuthUser.login(credentials);
-    }
+function Authentication() {
+    let _loginState = null,
+        _appState = null;
 
     function logout() {
     }
@@ -9,17 +8,48 @@ function Authentication(readAuthUser) {
     function initSession() {
     }
 
-    function setAppState() {
+    function loginState(stateName, stateParams) {
+        if (arguments.length) {
+            _loginState = {
+                name: stateName,
+                params: stateParams
+            };
+        }
+
+        return _loginState;
     }
 
-    function getAppState() {
+    function appState(stateName, stateParams) {
+        if (arguments.length) {
+            if (_.isString(stateName)) {
+                _appState = {
+                    name: stateName,
+                    params: stateParams
+                };
+            } else if (_.isFunction(stateName)) {
+                _appState = stateName;
+            } else if (_.isObject(stateName) && _.isString(stateName.name)) {
+                _appState = stateName;
+            }
+        }
+
+        return _appState;
     }
 
     function redirectToAppState() {
     }
 
     return {
-        $get: function ($rootScope, READ_AUTH_EVENTS) {
+        loginState: loginState,
+        appState: appState,
+
+        $inject: ['readAuthUser'],
+
+        $get: function (readAuthUser, $rootScope, READ_AUTH_EVENTS) {
+            function login(credentials) {
+                return readAuthUser.login(credentials);
+            }
+
             $rootScope.$on(READ_AUTH_EVENTS.loginSuccess, redirectToTargetState);
 
             function redirectToTargetState() {
@@ -30,14 +60,13 @@ function Authentication(readAuthUser) {
                 login: login,
                 logout: logout,
                 initSession: initSession,
-                setAppState: setAppState,
-                getAppState: getAppState,
+
                 redirectToAppState: redirectToAppState
             }
         }
     }
 }
 
-Authentication.$inject = ['readAuthUser'];
+// Authentication.$inject = ['readAuthUser'];
 
 export default Authentication;

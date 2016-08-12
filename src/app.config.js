@@ -1,15 +1,13 @@
-function routing($urlRouterProvider, ReadHubResourceProvider, readEnvironmentProvider) {
-    $urlRouterProvider.otherwise('/read/book');
+function config(readApplicationConfiguratorProvider) {
+    readApplicationConfiguratorProvider.configure({
+        defaultApplicationState: '/read/book',
+        defaultLoginState: 'login',
 
-    if (readEnvironmentProvider.isDevelopment()) {
-        // ReadHubResourceProvider.setBaseUrl('http://localhost:20000/api');
-    }
+        productionBaseUrl: 'http://hub.mue.in.ua/api',
+        developmentBaseUrl: 'http://hub.mue.in.ua/api'
+    });
 }
 
-routing.$inject = [
-    '$urlRouterProvider',
-    'ReadHubResourceProvider',
-    'readEnvironmentProvider'
-];
+config.$inject = ['readApplicationConfiguratorProvider'];
 
-export default routing;
+export default config;
