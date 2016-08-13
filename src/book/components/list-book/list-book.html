@@ -1,1 +1,19 @@
-list book directive
+<h3>Book List</h3>
+
+<div class="list-group">
+    <div class="list-group-item" ng-repeat="book in readConfiguration.books">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a ui-sref="read.book.edit({id: book._id})">
+                            <h4 class="list-group-item-heading">{{book.title}}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+</div>

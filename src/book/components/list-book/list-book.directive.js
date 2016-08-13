@@ -5,10 +5,6 @@ function ListBook() {
         
         scope: {
             readConfiguration: '='
-        },
-
-        controller: function ($scope) {
-            
         }
     }
 }
