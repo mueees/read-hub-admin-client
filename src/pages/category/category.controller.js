@@ -1,5 +1,3 @@
-import {Observable} from 'rxjs/Observable';
-
 class CategoryPageController {
     constructor(readCategoryManager) {
         let self = this;

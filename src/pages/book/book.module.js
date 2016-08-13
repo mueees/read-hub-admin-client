@@ -5,7 +5,13 @@ import book from '../../book/book.module';
 
 import routing from './book.routes';
 import BookController from './book.controller';
+import AddBookController from './add-book.controller';
 
-export default angular.module('read.pages.book', [uirouter, book]).config(routing)
+const pageBook = angular.module('read.pages.book', [uirouter, book]);
+
+pageBook
+    .config(routing)
     .controller('BookController', BookController)
-    .name;
+    .controller('AddBookController', AddBookController);
+
+export default pageBook.name;

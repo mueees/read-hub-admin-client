@@ -1,1 +1,113 @@
-<h1>Add book directive</h1>
+<h3>Add new Book</h3>
+
+<form name="addBookForm" novalidate>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>
+                    Title
+                </label>
+                <input autofocus class="form-control" type="text" name="title" ng-model='book.title' required/>
+            </div>
+            <div class="form-group">
+                <label>
+                    Description
+                </label>
+
+                <textarea class="form-control" type="text" name="description" ng-model='book.description'>
+
+                </textarea>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Pages</label>
+                            <input class="form-control" type="number" name="pages" ng-model='book.pages'/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>
+                                Binding
+                            </label>
+
+                            <select class="form-control" ng-model='book.binding'>
+                                <option ng-repeat="binding in bindings" value="{{binding.value}}">
+                                    {{binding.displayValue}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>
+                                Language
+                            </label>
+
+                            <select class="form-control" ng-model='book.language'>
+                                <option ng-repeat="language in languages" value="{{language.value}}">
+                                    {{language.displayValue}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <button ng-click="addQuote()" type="button" class="btn btn-link">Add quote</button>
+                </div>
+                <div class="form-group" ng-repeat="quote in book.quotes">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input placeholder="Quote" class="form-control" type="text" ng-model="quote.text">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" ng-click="deleteQuote(quote)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>
+                    Cover
+                </label>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <img width="115" src="{{book.cover}}"/>
+                    </div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" name="cover" ng-model='book.cover'/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <button ng-click="addAuthor()" type="button" class="btn btn-link">Add author</button>
+                </div>
+                <div class="form-group" ng-repeat="author in book.authors">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input placeholder="Author" class="form-control"
+                                   type="text"
+                                   ng-model="author.name">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-link" type="button" ng-click="deleteAuthor(author)">Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-primary" ng-click="save()" type="submit" ng-disabled="addBookForm.$invalid || addBookForm.$pristine">Save</button>
+        </div>
+    </div>
+</form>
