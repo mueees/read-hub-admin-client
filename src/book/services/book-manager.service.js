@@ -8,7 +8,7 @@ function BookManagerService(ReadHubResource, READ_BOOK) {
 
             _.assign(bookResource, book);
 
-            return bookResource.put();
+            return bookResource.post();
         },
 
         save: function (data) {
@@ -16,7 +16,9 @@ function BookManagerService(ReadHubResource, READ_BOOK) {
 
             Object.assign(bookResource, data);
 
-            return bookResource.save();
+            delete bookResource._id;
+
+            return bookResource.put();
         },
 
         delete: function (id) {
@@ -25,6 +27,14 @@ function BookManagerService(ReadHubResource, READ_BOOK) {
 
         getAll: function () {
             return BookResource.all(READ_BOOK.url).getList();
+        },
+
+        get: function (id) {
+            return this.getAll().then(function (books) {
+                return _.find(books, {
+                    _id: id
+                })
+            });
         }
     };
 }

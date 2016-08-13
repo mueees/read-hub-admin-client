@@ -1,7 +1,7 @@
-function AddBookDirective(readBookManager, READ_BOOK) {
+function EditorBookDirective(readBookManager, READ_BOOK) {
     return {
         restrict: 'E',
-        template: require('./add-book.html'),
+        template: require('./editor-book.html'),
 
         scope: {
             readConfiguration: '='
@@ -15,7 +15,7 @@ function AddBookDirective(readBookManager, READ_BOOK) {
 
             $scope.book = initializeBook();
 
-            let isNewBook = Boolean($scope.book._id);
+            let isNewBook = !Boolean($scope.book._id);
 
             _.assign($scope, {
                 bindings: READ_BOOK.bindings,
@@ -51,7 +51,7 @@ function AddBookDirective(readBookManager, READ_BOOK) {
                     if (isNewBook) {
                         promise = readBookManager.create($scope.book);
                     } else {
-                        promise = readBookManager.create($scope.book);
+                        promise = readBookManager.save($scope.book);
                     }
 
                     promise.then(function () {
@@ -59,7 +59,11 @@ function AddBookDirective(readBookManager, READ_BOOK) {
                             $scope.readConfiguration.onSave($scope.book);
                         }
 
-                        resetForm();
+                        if (isNewBook) {
+                            resetForm();
+                        } else {
+                            $scope.addBookForm.$setPristine();
+                        }
                     });
                 }
             });
@@ -75,6 +79,6 @@ function AddBookDirective(readBookManager, READ_BOOK) {
     }
 }
 
-AddBookDirective.$inject = ['readBookManager', 'READ_BOOK'];
+EditorBookDirective.$inject = ['readBookManager', 'READ_BOOK'];
 
-export default AddBookDirective;
+export default EditorBookDirective;

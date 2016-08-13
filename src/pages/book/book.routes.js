@@ -19,6 +19,15 @@ function routes($stateProvider) {
                     controller: 'AddBookController'
                 }
             }
+        })
+        .state('read.book.edit', {
+            url: '/edit/:id',
+            views: {
+                content: {
+                    template: require('./edit-book.controller.html'),
+                    controller: 'EditBookController'
+                }
+            }
         });
 }
 

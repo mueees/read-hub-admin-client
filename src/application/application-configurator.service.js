@@ -19,9 +19,9 @@ function ApplicationConfigurator($urlRouterProvider,
         }
 
         if (readEnvironmentProvider.isDevelopment()) {
-            ReadHubResourceProvider.setBaseUrl(applicationConfig.productionBaseUrl);
-        } else {
             ReadHubResourceProvider.setBaseUrl(applicationConfig.developmentBaseUrl);
+        } else {
+            ReadHubResourceProvider.setBaseUrl(applicationConfig.productionBaseUrl);
         }
     }
 

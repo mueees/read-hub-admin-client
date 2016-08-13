@@ -1,5 +1,5 @@
 function AddBookController($scope) {
-    $scope.addBookConfiguration = {
+    $scope.editorBookConfiguration = {
         onSave: function () {
             console.log('saved');
         }
