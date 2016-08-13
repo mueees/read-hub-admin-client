@@ -11,6 +11,15 @@ function routes($stateProvider) {
                 }
             }
         })
+        .state('read.book.list', {
+            url: '/list',
+            views: {
+                content: {
+                    template: require('./list-book.controller.html'),
+                    controller: 'ListBookController'
+                }
+            }
+        })
         .state('read.book.add', {
             url: '/add',
             views: {
