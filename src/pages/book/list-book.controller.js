@@ -33,7 +33,7 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
                         let isContinue = true;
 
                         switch (filterKey) {
-                            case filterKey === 'cover':
+                            case 'cover':
                                 if (book.cover !== READ_BOOK.defaultCover) {
                                     addToFilter = false;
                                     isContinue = false;
@@ -53,6 +53,10 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
                         return isContinue;
                     }
                 });
+
+                if (addToFilter) {
+                    filteredBooks.push(book);
+                }
             });
         }
 

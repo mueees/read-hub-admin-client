@@ -15,6 +15,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 authors: [],
                 tags: [],
                 quotes: [],
+                promo: '',
                 pages: 0,
                 language: READ_BOOK.languages.ru.value,
                 binding: READ_BOOK.bindings.hard.value,
@@ -24,12 +25,24 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
 
             $scope.book = initializeBook();
 
+            if (!_.isEmpty($scope.book.tags)) {
+                _.each($scope.book.tags, function (tagId) {
+                    let tag = _.find($scope.readConfiguration.tags, {
+                        _id: tagId
+                    });
+
+                    tag.selected = true;
+                });
+            }
+
             _.assign($scope, {
                 isNewBook: !Boolean($scope.book._id),
 
                 bindings: READ_BOOK.bindings,
 
                 languages: READ_BOOK.languages,
+
+                promoLabels: READ_BOOK.promoLabels,
 
                 owners: READ_BOOK.owners,
 

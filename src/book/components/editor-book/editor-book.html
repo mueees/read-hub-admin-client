@@ -60,20 +60,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Tags</label>
+                            <label>Promo</label>
 
-                            <div ng-repeat="tag in readConfiguration.tags">
-                                <div class="checkbox">
-                                    <label>
-                                        <input
-                                                type="checkbox"
-                                                name="selectedTags[]"
-                                                value="{{tag.name}}"
-                                                ng-model="tag.selected"
-                                                >  {{tag.name}}
-                                    </label>
-                                </div>
-                            </div>
+                            <select class="form-control" ng-model='book.promo'>
+                                <option value="''"></option>
+
+                                <option ng-repeat="promoLabel in promoLabels" value="{{promoLabel}}">
+                                    {{promoLabel}}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -133,6 +128,24 @@
                     </div>
                     <div class="col-md-9">
                         <input class="form-control" type="text" name="cover" ng-model='book.cover' placeholder="Url"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label>Tags</label>
+
+                    <div ng-repeat="tag in readConfiguration.tags">
+                        <div class="checkbox">
+                            <label>
+                                <input
+                                        type="checkbox"
+                                        name="selectedTags[]"
+                                        value="{{tag.name}}"
+                                        ng-model="tag.selected"
+                                > {{tag.name}}
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -40,6 +40,12 @@ let BOOK = {
 
     defaultExist: true,
 
+    promoLabels: [
+        'new',
+        'promo',
+        'bestseller'
+    ],
+
     url: '/read-hub/books'
 };
 
