@@ -1,4 +1,5 @@
-<h3>Add new Book</h3>
+<h3 ng-if="isNewBook">Add new Book</h3>
+<h3 ng-if="!isNewBook">Edit book</h3>
 
 <form name="addBookForm" novalidate>
     <div class="row">
@@ -7,6 +8,7 @@
                 <label>
                     Title
                 </label>
+
                 <input autofocus class="form-control" type="text" name="title" ng-model='book.title' required/>
             </div>
             <div class="form-group">
@@ -55,6 +57,48 @@
                 </div>
             </div>
             <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Tags</label>
+
+                            <div ng-repeat="tag in readConfiguration.tags">
+                                <div class="checkbox">
+                                    <label>
+                                        <input
+                                                type="checkbox"
+                                                name="selectedTags[]"
+                                                value="{{tag.name}}"
+                                                ng-model="tag.selected"
+                                                >  {{tag.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>
+                                Owner
+                            </label>
+
+                            <select class="form-control" ng-model='book.owner'>
+                                <option ng-repeat="owner in owners" value="{{owner.value}}">
+                                    {{owner.displayValue}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input class="form-control" type="number" name="price" ng-model='book.price'
+                                   placeholder="$"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="form-group">
                     <button ng-click="addQuote()" type="button" class="btn btn-link">Add quote</button>
                 </div>
@@ -72,6 +116,13 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="book.exist"/> Exist
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
                 <label>
                     Cover
                 </label>
@@ -81,7 +132,7 @@
                         <img width="115" src="{{book.cover}}"/>
                     </div>
                     <div class="col-md-9">
-                        <input class="form-control" type="text" name="cover" ng-model='book.cover'/>
+                        <input class="form-control" type="text" name="cover" ng-model='book.cover' placeholder="Url"/>
                     </div>
                 </div>
             </div>
@@ -107,7 +158,9 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <button class="btn btn-primary" ng-click="save()" type="submit" ng-disabled="addBookForm.$invalid || addBookForm.$pristine">Save</button>
+            <button class="btn btn-primary" ng-click="save()" type="submit"
+                    ng-disabled="addBookForm.$invalid || addBookForm.$pristine">Save
+            </button>
         </div>
     </div>
 </form>

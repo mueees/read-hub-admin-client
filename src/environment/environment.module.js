@@ -21,7 +21,10 @@ environment.provider('readEnvironment', function () {
         isProduction: isProduction,
 
         $get: function () {
-            return {};
+            return {
+                isDevelopment: isDevelopment,
+                isProduction: isProduction
+            };
         }
     }
 });

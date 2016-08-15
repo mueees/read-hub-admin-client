@@ -9,17 +9,29 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
 
         controller: function ($scope) {
             let book = {
+                title: '',
+                description: '',
+                exist: READ_BOOK.defaultExist,
                 authors: [],
-                quotes: []
+                tags: [],
+                quotes: [],
+                pages: 0,
+                language: READ_BOOK.languages.ru.value,
+                binding: READ_BOOK.bindings.hard.value,
+                owner: READ_BOOK.owners.svitlana.value,
+                cover: READ_BOOK.defaultCover
             };
 
             $scope.book = initializeBook();
 
-            let isNewBook = !Boolean($scope.book._id);
-
             _.assign($scope, {
+                isNewBook: !Boolean($scope.book._id),
+
                 bindings: READ_BOOK.bindings,
+
                 languages: READ_BOOK.languages,
+
+                owners: READ_BOOK.owners,
 
                 addAuthor: function () {
                     $scope.book.authors.push({
@@ -48,7 +60,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 save: function () {
                     let promise;
 
-                    if (isNewBook) {
+                    if ($scope.isNewBook) {
                         promise = readBookManager.create($scope.book);
                     } else {
                         promise = readBookManager.save($scope.book);
@@ -59,7 +71,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                             $scope.readConfiguration.onSave($scope.book);
                         }
 
-                        if (isNewBook) {
+                        if ($scope.isNewBook) {
                             resetForm();
                         } else {
                             $scope.addBookForm.$setPristine();
@@ -67,6 +79,14 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                     });
                 }
             });
+
+            $scope.$watch('readConfiguration.tags|filter:{selected:true}', function (tags) {
+                $scope.book.tags = _.map(tags, '_id');
+            }, true);
+
+            $scope.addAuthor();
+
+            $scope.addQuote();
 
             function resetForm() {
                 $scope.book = _.cloneDeep(book);

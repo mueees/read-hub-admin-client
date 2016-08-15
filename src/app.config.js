@@ -4,7 +4,7 @@ function config(readApplicationConfiguratorProvider) {
         defaultLoginState: 'login',
 
         productionBaseUrl: 'http://hub.mue.in.ua/api',
-        developmentBaseUrl: 'http://localhost:20000/api'
+        developmentBaseUrl: 'http://hub.mue.in.ua/api' // 'http://localhost:20000/api'
     });
 }
 

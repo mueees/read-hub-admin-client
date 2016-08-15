@@ -1,6 +1,13 @@
-function EditBookController(readBookManager, $stateParams, $scope, $state) {
-    readBookManager.get($stateParams.id).then(function (book) {
-        $scope.editorBookConfiguration.book = book.plain();
+function EditBookController($q, readBookManager, readCategoryManager, readTagManager, $stateParams, $scope, $state) {
+
+    $q.all({
+        book: readBookManager.get($stateParams.id),
+        tags: readTagManager.getAll(),
+        categories: readCategoryManager.getAll()
+    }).then(function (results) {
+        $scope.editorBookConfiguration.categories = results.categories.plain();
+        $scope.editorBookConfiguration.tags = results.tags.plain();
+        $scope.editorBookConfiguration.book = results.book.plain();
     });
 
     $scope.editorBookConfiguration = {
@@ -10,6 +17,6 @@ function EditBookController(readBookManager, $stateParams, $scope, $state) {
     };
 }
 
-EditBookController.$inject = ['readBookManager', '$stateParams', '$scope', '$state'];
+EditBookController.$inject = ['$q', 'readBookManager', 'readCategoryManager', 'readTagManager', '$stateParams', '$scope', '$state'];
 
 export default EditBookController;

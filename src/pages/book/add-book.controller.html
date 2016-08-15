@@ -1,1 +1,5 @@
-<read-editor-book read-configuration="editorBookConfiguration"></read-editor-book>
+<read-editor-book ng-if="editorBookConfiguration.tags" read-configuration="editorBookConfiguration"></read-editor-book>
+
+<div ng-if="!editorBookConfiguration.tags">
+    Loading...
+</div>

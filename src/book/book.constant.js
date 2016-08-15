@@ -10,6 +10,8 @@ let BOOK = {
         }
     },
 
+    defaultCover: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
+
     languages: {
         en: {
             displayValue: 'English',
@@ -24,6 +26,19 @@ let BOOK = {
             value: 'ru'
         }
     },
+
+    owners: {
+        svitlana: {
+            displayValue: 'svitlana',
+            value: 'svitlana'
+        },
+        andrey: {
+            displayValue: 'andrey',
+            value: 'andrey'
+        }
+    },
+
+    defaultExist: true,
 
     url: '/read-hub/books'
 };
