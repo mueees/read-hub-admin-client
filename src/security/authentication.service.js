@@ -5,9 +5,6 @@ function Authentication() {
     function logout() {
     }
 
-    function initSession() {
-    }
-
     function loginState(stateName, stateParams) {
         if (arguments.length) {
             _loginState = {
@@ -43,9 +40,9 @@ function Authentication() {
         loginState: loginState,
         appState: appState,
 
-        $inject: ['readAuthUser'],
+        $inject: ['$q', 'readAuthUser', 'readSession'],
 
-        $get: function (readAuthUser, $rootScope, READ_AUTH_EVENTS) {
+        $get: function ($q, readAuthUser, readSession, $rootScope, READ_AUTH_EVENTS) {
             function login(credentials) {
                 return readAuthUser.login(credentials);
             }
@@ -53,7 +50,21 @@ function Authentication() {
             $rootScope.$on(READ_AUTH_EVENTS.loginSuccess, redirectToTargetState);
 
             function redirectToTargetState() {
+                
+            }
 
+            function initSession() {
+                return $q(function (resolve, reject) {
+                    if (readSession.isAlive()) {
+                        resolve();
+                    } else {
+                        readAuthUser.getCurrentUser().then(function (user) {
+                            readSession.create(user);
+
+                            resolve();
+                        }, reject);
+                    }
+                });
             }
 
             return {

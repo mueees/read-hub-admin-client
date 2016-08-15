@@ -1,14 +1,27 @@
-function ApplicationConfigurator($urlRouterProvider,
+function ApplicationConfigurator($httpProvider,
+                                 $urlRouterProvider,
                                  readAuthenticationProvider,
                                  readEnvironmentProvider,
                                  ReadHubResourceProvider) {
-    var defaultApplicationConfig = {},
+    var defaultApplicationConfig = {
+            httpInterceptors: ['readHttpResponseErrorInterceptor']
+        },
         applicationConfig;
 
     function configure(config) {
         applicationConfig = _.cloneDeep(defaultApplicationConfig);
 
         _.assign(applicationConfig, config);
+
+        if (applicationConfig.httpInterceptors) {
+            if (_.isArray(applicationConfig.httpInterceptors)) {
+                _.each(applicationConfig.httpInterceptors, function (interceptor) {
+                    $httpProvider.interceptors.push(interceptor);
+                });
+            } else {
+                $httpProvider.interceptors.push(applicationConfig.httpInterceptors);
+            }
+        }
 
         readAuthenticationProvider.loginState(applicationConfig.defaultLoginState || 'login');
 
@@ -28,43 +41,21 @@ function ApplicationConfigurator($urlRouterProvider,
     return {
         configure: configure,
 
-        $get: function ($rootScope) {
+        $inject: ['$state', 'readSession', 'readAuthentication'],
+
+        $get: function ($state, readSession, readAuthentication, $rootScope) {
             return {
                 runApplicationConfig: function (config) {
                     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
-                        /*if (toState.name != 'login' || !(toState.access && toState.access.loginRequired === false)) {
-                            if (rxSession.isAlive()) {
-                                if (options.isUserFromRestrictedGroup()) {
-                                    if (options.noAccessRedirectState && !rxAuthorization.isStateAuthorized(toState)) {
-                                        event.preventDefault();
-                                        $state.go(options.noAccessRedirectState);
-                                    }
+                        if (toState.name !== 'login' || (toState.access && toState.access.loginRequired === false)) {
+                            if (!readSession.isAlive()) {
+                                event.preventDefault();
 
-                                    if (!event.defaultPrevented && self.debugOptions) {
-                                        rxLog.debug(getStateChangeMessage(fromState, toState, toParams));
-                                    }
-
-                                } else {
-                                    event.preventDefault();
-
-                                    rxAuthentication.logout();
-
-                                    rxNotificationMessage.error(options.noAccessMessage);
-                                }
-                            } else {
-                                if (!rxSession.isAlive()) {
-                                    event.preventDefault();
-
-                                    rxAuthentication.initSession().then(function () {
-                                        $state.go(toState.name, toParams);
-                                    });
-                                }
-
-                                if (!event.defaultPrevented && self.debugOptions) {
-                                    rxLog.debug(getStateChangeMessage(fromState, toState, toParams));
-                                }
+                                readAuthentication.initSession().then(function () {
+                                    $state.go(toState.name, toParams);
+                                });
                             }
-                        }*/
+                        }
                     });
                 }
             };
@@ -73,6 +64,7 @@ function ApplicationConfigurator($urlRouterProvider,
 }
 
 ApplicationConfigurator.$inject = [
+    '$httpProvider',
     '$urlRouterProvider',
     'readAuthenticationProvider',
     'readEnvironmentProvider',

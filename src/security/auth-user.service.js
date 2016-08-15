@@ -9,8 +9,15 @@ function AuthUser($q) {
         }
     }
 
+    function getCurrentUser() {
+        return $q.when({
+            email: 'admin@gmail.com'
+        });
+    }
+
     return {
-        login: login
+        login: login,
+        getCurrentUser: getCurrentUser
     }
 }
 
