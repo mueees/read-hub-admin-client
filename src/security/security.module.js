@@ -6,6 +6,7 @@ import SessionService from './session.service';
 import CurrentUserService from './current-user.service';
 import READ_AUTH_EVENTS from './auth-events.constant';
 import SecurityConfig from './security.config';
+import LocalAuthentication from './local-authentication.service';
 
 const security = angular.module('read.security', []);
 
@@ -15,6 +16,7 @@ security
     .service('readAuthUser', AuthUserService)
     .service('readCurrentUser', CurrentUserService)
     .service('readSession', SessionService)
+    .service('readLocalAuthentication', LocalAuthentication)
     .provider('readAuthentication', AuthenticationService);
 
 export default security.name;

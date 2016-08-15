@@ -1,9 +1,9 @@
 function Authentication() {
     let _loginState = null,
-        _appState = null;
-
-    function logout() {
-    }
+        _appState = null,
+        afterLoginState = null,
+        _token = null,
+        _authenticationServiceName = null;
 
     function loginState(stateName, stateParams) {
         if (arguments.length) {
@@ -38,19 +38,81 @@ function Authentication() {
 
     return {
         loginState: loginState,
+
         appState: appState,
 
-        $inject: ['$q', 'readAuthUser', 'readSession'],
+        useAuthentication: function (authenticationServiceName) {
+            _authenticationServiceName = authenticationServiceName;
+        },
 
-        $get: function ($q, readAuthUser, readSession, $rootScope, READ_AUTH_EVENTS) {
+        $inject: ['$injector', '$state', '$q', 'readSession'],
+
+        $get: function ($injector, $state, $q, readSession, $rootScope, READ_AUTH_EVENTS) {
+            var authenticationService = $injector.get(_authenticationServiceName);
+
             function login(credentials) {
-                return readAuthUser.login(credentials);
+                return authenticationService.login(credentials).then(function (token) {
+                    if (!token) {
+                        throw new Error('Login method should return token');
+                    }
+
+                    _token = token;
+                });
+            }
+
+            $rootScope.$on(READ_AUTH_EVENTS.notAuthenticated, function () {
+                readSession.destroy();
+                _token = null;
+
+                _redirectToLoginState();
+            });
+
+            function _redirectToLoginState() {
+                _redirectToState(_loginState);
+            }
+
+            function _redirectToState(state) {
+                var targetState;
+
+                if (_.isFunction(state)) {
+                    targetState = state();
+                } else {
+                    targetState = _.cloneDeep(state);
+                }
+
+                if (_.isString(targetState)) {
+                    targetState = {
+                        name: targetState
+                    };
+                }
+
+                $state.go(targetState.name, targetState.params);
             }
 
             $rootScope.$on(READ_AUTH_EVENTS.loginSuccess, redirectToTargetState);
 
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+                if (toState && toState.name !== _loginState.name) {
+                    afterLoginState = {
+                        name: toState.name,
+                        params: toParams
+                    };
+                }
+            });
+
             function redirectToTargetState() {
-                
+                if (!afterLoginState) {
+                    redirectToAppState();
+                } else {
+                    _redirectToState(afterLoginState);
+                    afterLoginState = _appState;
+                }
+            }
+
+            function redirectToAppState() {
+                if (_appState) {
+                    _redirectToState(_appState);
+                }
             }
 
             function initSession() {
@@ -58,24 +120,25 @@ function Authentication() {
                     if (readSession.isAlive()) {
                         resolve();
                     } else {
-                        readAuthUser.getCurrentUser().then(function (user) {
+                        authenticationService.getCurrentUser(_token).then(function (user) {
                             readSession.create(user);
 
                             resolve();
-                        }, reject);
+                        }, function () {
+                            $rootScope.$broadcast(READ_AUTH_EVENTS.notAuthenticated);
+                            reject();
+                        });
                     }
                 });
             }
 
             return {
                 login: login,
-                logout: logout,
                 initSession: initSession,
-
                 redirectToAppState: redirectToAppState
             }
         }
-    }
+    };
 }
 
 export default Authentication;

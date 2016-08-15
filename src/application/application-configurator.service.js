@@ -4,7 +4,8 @@ function ApplicationConfigurator($httpProvider,
                                  readEnvironmentProvider,
                                  ReadHubResourceProvider) {
     var defaultApplicationConfig = {
-            httpInterceptors: ['readHttpResponseErrorInterceptor']
+            httpInterceptors: ['readHttpResponseErrorInterceptor'],
+            authenticationServiceName: 'readLocalAuthentication'
         },
         applicationConfig;
 
@@ -24,6 +25,8 @@ function ApplicationConfigurator($httpProvider,
         }
 
         readAuthenticationProvider.loginState(applicationConfig.defaultLoginState || 'login');
+
+        readAuthenticationProvider.useAuthentication(applicationConfig.authenticationServiceName);
 
         if (applicationConfig.defaultApplicationState) {
             readAuthenticationProvider.appState(applicationConfig.defaultApplicationState);

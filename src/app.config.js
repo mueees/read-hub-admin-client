@@ -1,6 +1,6 @@
 function config(readApplicationConfiguratorProvider) {
     readApplicationConfiguratorProvider.configure({
-        defaultApplicationState: '/read/book/list',
+        defaultApplicationState: 'read.book.list',
         defaultLoginState: 'login',
 
         productionBaseUrl: 'http://hub.mue.in.ua/api',
