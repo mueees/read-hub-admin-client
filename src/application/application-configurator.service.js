@@ -31,7 +31,10 @@ function ApplicationConfigurator($httpProvider,
         if (applicationConfig.defaultApplicationState) {
             readAuthenticationProvider.appState(applicationConfig.defaultApplicationState);
 
-            $urlRouterProvider.otherwise(applicationConfig.defaultApplicationState);
+            $urlRouterProvider.otherwise(function ($injector) {
+                var $state = $injector.get('$state');
+                $state.go(applicationConfig.defaultApplicationState);
+            });
         }
 
         if (readEnvironmentProvider.isDevelopment()) {

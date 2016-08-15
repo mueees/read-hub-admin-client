@@ -5,7 +5,12 @@ function routes($stateProvider) {
             url: '/read',
             template: require('./viewport.html'),
             controller: 'ViewportController',
-            controllerAs: 'viewport'
+            controllerAs: 'viewport',
+            resolve: {
+                session: function (readAuthentication) {
+                    return readAuthentication.initSession();
+                }
+            }
         });
 }
 
