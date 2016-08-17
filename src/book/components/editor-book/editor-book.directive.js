@@ -13,6 +13,10 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 description: '',
                 exist: READ_BOOK.defaultExist,
                 authors: [],
+                categories: [{
+                    _id: '123',
+                    primary: true
+                }],
                 tags: [],
                 quotes: [],
                 promo: '',
@@ -45,6 +49,10 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 promoLabels: READ_BOOK.promoLabels,
 
                 owners: READ_BOOK.owners,
+
+                editorCategoryConfiguration: {
+                    categories: $scope.readConfiguration.categories
+                },
 
                 addAuthor: function () {
                     $scope.book.authors.push({
