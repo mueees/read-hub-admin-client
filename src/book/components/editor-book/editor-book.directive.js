@@ -13,10 +13,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 description: '',
                 exist: READ_BOOK.defaultExist,
                 authors: [],
-                categories: [{
-                    _id: '123',
-                    primary: true
-                }],
+                categories: [],
                 tags: [],
                 quotes: [],
                 promo: '',
@@ -51,8 +48,8 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 owners: READ_BOOK.owners,
 
                 editorCategoryConfiguration: {
-                    categories: $scope.readConfiguration
-                },
+                    categories: $scope.readConfiguration.categories
+                }, 
 
                 deleteAuthor: function (author) {
                     _.remove($scope.book.authors, {
