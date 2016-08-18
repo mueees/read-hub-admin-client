@@ -98,9 +98,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="form-group">
-                    <button ng-click="addQuote()" type="button" class="btn btn-link">Add quote</button>
-                </div>
                 <div class="form-group" ng-repeat="quote in book.quotes">
                     <div class="row">
                         <div class="col-md-10">
@@ -154,9 +151,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="form-group">
-                    <button ng-click="addAuthor()" type="button" class="btn btn-link">Add author</button>
-                </div>
                 <div class="form-group" ng-repeat="author in book.authors">
                     <div class="row">
                         <div class="col-md-10">
@@ -175,6 +169,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            {{addBookForm.$pristine}}
             <button class="btn btn-primary" ng-click="save()" type="submit"
                     ng-disabled="addBookForm.$invalid || addBookForm.$pristine">Save
             </button>

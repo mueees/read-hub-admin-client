@@ -51,24 +51,12 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 owners: READ_BOOK.owners,
 
                 editorCategoryConfiguration: {
-                    categories: $scope.readConfiguration.categories
-                },
-
-                addAuthor: function () {
-                    $scope.book.authors.push({
-                        name: ''
-                    });
+                    categories: $scope.readConfiguration
                 },
 
                 deleteAuthor: function (author) {
                     _.remove($scope.book.authors, {
                         name: author.name
-                    });
-                },
-
-                addQuote: function () {
-                    $scope.book.quotes.push({
-                        text: ''
                     });
                 },
 
@@ -105,9 +93,37 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 $scope.book.tags = _.map(tags, '_id');
             }, true);
 
-            $scope.addAuthor();
+            $scope.$watch('book.quotes', function () {
+                let emptyQuotes = _.filter($scope.book.quotes, {
+                    text: ''
+                });
 
-            $scope.addQuote();
+                if (_.isEmpty(emptyQuotes)) {
+                    $scope.book.quotes.push({text: ''});
+                } else if (emptyQuotes.length > 1) {
+                    _.remove($scope.book.quotes, {
+                        text: ''
+                    });
+
+                    $scope.book.quotes.push({text: ''});
+                }
+            }, true);
+
+            $scope.$watch('book.authors', function () {
+                let emptyAuthors = _.filter($scope.book.authors, {
+                    name: ''
+                });
+
+                if (_.isEmpty(emptyAuthors)) {
+                    $scope.book.authors.push({name: ''});
+                } else if (emptyAuthors.length > 1) {
+                    _.remove($scope.book.authors, {
+                        name: ''
+                    });
+
+                    $scope.book.authors.push({name: ''});
+                }
+            }, true);
 
             function resetForm() {
                 $scope.book = _.cloneDeep(book);
