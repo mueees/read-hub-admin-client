@@ -118,8 +118,6 @@
 
         </div>
         <div class="col-md-6">
-            <read-related-books-editor read-configuration="relatedBooksConfiguration"
-                                       ng-model="book.relatedBooks"></read-related-books-editor>
             <div class="form-group">
                 <label>
                     Title
@@ -163,6 +161,12 @@
                 </label>
 
                 <input class="form-control" type="text" name="title" ng-model='book.isbn'/>
+            </div>
+            <div class="form-group">
+                <label>Related books</label>
+
+                <read-related-books-editor read-configuration="relatedBooksConfiguration"
+                                           ng-model="book.relatedBooks"></read-related-books-editor>
             </div>
             <div class="form-group">
                 <div class="form-group" ng-repeat="quote in book.quotes">

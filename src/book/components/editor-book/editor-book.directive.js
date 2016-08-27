@@ -54,6 +54,11 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                     categories: $scope.readConfiguration.categories
                 },
 
+                relatedBooksConfiguration: {
+                    books: $scope.readConfiguration.books,
+                    currentBookId: $scope.book._id
+                },
+
                 deleteAuthor: function (author) {
                     _.remove($scope.book.authors, {
                         name: author.name

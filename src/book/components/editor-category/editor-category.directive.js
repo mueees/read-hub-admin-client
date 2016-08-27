@@ -68,6 +68,10 @@ function EditorCategory() {
                 return modelData;
             }
 
+            /*
+             * Array of functions to execute, as a pipeline,
+             * whenever the model value changes
+             * */
             ngModel.$formatters.push(function (modelValue) {
                 _.each(flatCategories, function (flatCategory) {
                     let modelCategory = _.find(modelValue, {
@@ -117,13 +121,19 @@ function EditorCategory() {
                 });
             });
 
+            // Called when the view needs to be updated
             ngModel.$render = function () {
                 $scope.categories = ngModel.$viewValue;
             };
 
+            /*
+             * Array of functions to execute, as a pipeline,
+             * whenever the control reads value from the DOM.
+             * */
             ngModel.$parsers.push(function (viewValue) {
                 return viewValue;
             });
+
 
             $scope.$watch('categories', function () {
                 ngModel.$setViewValue(getModelData());

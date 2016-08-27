@@ -10,7 +10,11 @@ import AddCategoryDirective     from    './components/add-category/add-category.
 import ListCategoryDirective    from    './components/list-category/list-category.directive';
 import CategoryManagerService   from    './services/category-manager.service';
 
-const category = angular.module('read.category', ['restangular', 'treeControl', readResource]);
+const category = angular.module('read.category', [
+    'restangular',
+    'treeControl',
+    readResource
+]);
 
 category
     .constant('READ_CATEGORY', CATEGORY)

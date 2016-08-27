@@ -1,10 +1,12 @@
-function AddBookController($q, readCategoryManager, readTagManager, $scope, $state) {
+function AddBookController($q, readCategoryManager, readTagManager, readBookManager, $scope, $state) {
     $q.all({
+        books: readBookManager.getAll(),
         tags: readTagManager.getAll(),
         categories: readCategoryManager.getAll()
     }).then(function (results) {
         $scope.editorBookConfiguration.categories = results.categories.plain();
         $scope.editorBookConfiguration.tags = results.tags.plain();
+        $scope.editorBookConfiguration.books = results.books.plain();
     });
 
     $scope.editorBookConfiguration = {
@@ -18,6 +20,6 @@ function AddBookController($q, readCategoryManager, readTagManager, $scope, $sta
     };
 }
 
-AddBookController.$inject = ['$q', 'readCategoryManager', 'readTagManager', '$scope', '$state'];
+AddBookController.$inject = ['$q', 'readCategoryManager', 'readTagManager', 'readBookManager', '$scope', '$state'];
 
 export default AddBookController;

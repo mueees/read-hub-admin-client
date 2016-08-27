@@ -8,7 +8,9 @@ import EditorCategoryDirective     from    './components/editor-category/editor-
 import BookManagerService   from    './services/book-manager.service';
 import BOOK from './book.constant';
 
-const book = angular.module('read.book', []);
+const book = angular.module('read.book', [
+    'angucomplete-alt'
+]);
 
 book
     .constant('READ_BOOK', BOOK)
