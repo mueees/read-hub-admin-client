@@ -118,6 +118,8 @@
 
         </div>
         <div class="col-md-6">
+            <read-related-books-editor read-configuration="relatedBooksConfiguration"
+                                       ng-model="book.relatedBooks"></read-related-books-editor>
             <div class="form-group">
                 <label>
                     Title
@@ -146,8 +148,21 @@
                 </label>
 
                 <textarea class="form-control" type="text" name="description" ng-model='book.description'>
-
                 </textarea>
+            </div>
+            <div class="form-group">
+                <label>
+                    Publisher
+                </label>
+
+                <input class="form-control" type="text" name="title" ng-model='book.publisher'/>
+            </div>
+            <div class="form-group">
+                <label>
+                    ISBN
+                </label>
+
+                <input class="form-control" type="text" name="title" ng-model='book.isbn'/>
             </div>
             <div class="form-group">
                 <div class="form-group" ng-repeat="quote in book.quotes">
@@ -177,6 +192,8 @@
             <button class="btn btn-primary" ng-click="save()" type="submit"
                     ng-disabled="addBookForm.$invalid || addBookForm.$pristine">Save
             </button>
+
+            <button ng-if="!isNewBook" class="btn btn-danger" ng-click="delete()" type="submit">Delete</button>
         </div>
     </div>
 </form>

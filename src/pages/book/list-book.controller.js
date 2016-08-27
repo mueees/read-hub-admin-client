@@ -15,9 +15,7 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
         filter: {}
     };
 
-    $scope.$watch('filterBookConfiguration.filter', function () {
-        filterBooks();
-    }, true);
+    $scope.$watch('filterBookConfiguration.filter', filterBooks, true);
 
     function filterBooks() {
         let filteredBooks = [];

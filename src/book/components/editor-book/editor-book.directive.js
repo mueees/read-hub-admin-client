@@ -13,10 +13,13 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 description: '',
                 exist: READ_BOOK.defaultExist,
                 authors: [],
+                relatedBooks: [],
                 categories: [],
                 tags: [],
                 quotes: [],
                 promo: '',
+                isbn: '',
+                publisher: '',
                 pages: 0,
                 language: READ_BOOK.languages.ru.value,
                 binding: READ_BOOK.bindings.hard.value,
@@ -49,7 +52,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
 
                 editorCategoryConfiguration: {
                     categories: $scope.readConfiguration.categories
-                }, 
+                },
 
                 deleteAuthor: function (author) {
                     _.remove($scope.book.authors, {
@@ -81,6 +84,14 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                             resetForm();
                         } else {
                             $scope.addBookForm.$setPristine();
+                        }
+                    });
+                },
+
+                delete: function () {
+                    readBookManager.delete($scope.book._id).then(function () {
+                        if (_.isFunction($scope.readConfiguration.onDelete)) {
+                            $scope.readConfiguration.onDelete($scope.book);
                         }
                     });
                 }

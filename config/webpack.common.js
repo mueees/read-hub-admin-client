@@ -9,7 +9,7 @@ module.exports = {
 
     entry: {
         vendor: './vendor',
-        
+
         app: './app',
 
         // Set up an ES6-ish environment
@@ -30,7 +30,10 @@ module.exports = {
         loaders: [
             {
                 loader: "babel",
-                exclude: helpers.root('node_modules'),
+                exclude: [
+                    helpers.root('node_modules'),
+                    helpers.root('src/vendor/')
+                ],
                 test: /\.js$/
             },
             {

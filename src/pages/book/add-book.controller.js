@@ -10,6 +10,10 @@ function AddBookController($q, readCategoryManager, readTagManager, $scope, $sta
     $scope.editorBookConfiguration = {
         onSave: function () {
             $state.go('read.book.list');
+        },
+
+        onDelete: function () {
+            $state.go('read.book.list');
         }
     };
 }
