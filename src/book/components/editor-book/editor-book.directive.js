@@ -24,7 +24,9 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 language: READ_BOOK.languages.ru.value,
                 binding: READ_BOOK.bindings.hard.value,
                 owner: READ_BOOK.owners.svitlana.value,
-                cover: READ_BOOK.defaultCover
+                covers: [{
+                    url: READ_BOOK.defaultCoverUrl
+                }]
             };
 
             $scope.book = initializeBook();
@@ -135,6 +137,22 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                     });
 
                     $scope.book.authors.push({name: ''});
+                }
+            }, true);
+
+            $scope.$watch('book.covers', function () {
+                let emptyCovers = _.filter($scope.book.covers, {
+                    url: ''
+                });
+
+                if (_.isEmpty(emptyCovers)) {
+                    $scope.book.covers.push({url: ''});
+                } else if (emptyCovers.length > 1) {
+                    _.remove($scope.book.covers, {
+                        url: ''
+                    });
+
+                    $scope.book.covers.push({url: ''});
                 }
             }, true);
 

@@ -10,7 +10,7 @@ let BOOK = {
         }
     },
 
-    defaultCover: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
+    defaultCoverUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
 
     languages: {
         en: {
