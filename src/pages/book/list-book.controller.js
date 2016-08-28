@@ -8,6 +8,8 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
     readBookManager.getAll().then(function (bookResources) {
         books = bookResources.plain();
 
+        books.sort(function(a, b){return a.createDate < b.createDate});
+
         filterBooks();
     });
 
@@ -18,22 +20,26 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
     $scope.$watch('filterBookConfiguration.filter', filterBooks, true);
 
     function filterBooks() {
+        // books result after filtering
         let filteredBooks = [];
 
         if (!_($scope.filterBookConfiguration.filter).values().compact().value().length) {
+            // no filter were checked
             filteredBooks = books;
         } else {
             _.each(books, function (book) {
-                let addToFilter = true;
+                let addToFilteredBook = true;
 
                 _.each($scope.filterBookConfiguration.filter, function (filterValue, filterKey) {
-                    if (filterValue && addToFilter) {
+                    // check only checked value
+                    if (filterValue && addToFilteredBook) {
+                        // is continue to itterate throw filter values for certaine book
                         let isContinue = true;
 
                         switch (filterKey) {
                             case 'cover':
-                                if (book.cover !== READ_BOOK.defaultCover) {
-                                    addToFilter = false;
+                                if (!_.isEmpty(book.covers)) {
+                                    addToFilteredBook = false;
                                     isContinue = false;
                                 }
 
@@ -41,7 +47,7 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
 
                             default:
                                 if (book[filterKey]) {
-                                    addToFilter = false;
+                                    addToFilteredBook = false;
                                     isContinue = false;
                                 }
 
@@ -52,7 +58,7 @@ function ListBookController($scope, readBookManager, READ_BOOK) {
                     }
                 });
 
-                if (addToFilter) {
+                if (addToFilteredBook) {
                     filteredBooks.push(book);
                 }
             });

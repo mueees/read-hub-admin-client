@@ -13,6 +13,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 description: '',
                 exist: READ_BOOK.defaultExist,
                 authors: [],
+                authorDescription: [],
                 relatedBooks: [],
                 categories: [],
                 tags: [],
@@ -96,11 +97,13 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 },
 
                 delete: function () {
-                    readBookManager.delete($scope.book._id).then(function () {
-                        if (_.isFunction($scope.readConfiguration.onDelete)) {
-                            $scope.readConfiguration.onDelete($scope.book);
-                        }
-                    });
+                    if (window.confirm('Are you sure?')) {
+                        readBookManager.delete($scope.book._id).then(function () {
+                            if (_.isFunction($scope.readConfiguration.onDelete)) {
+                                $scope.readConfiguration.onDelete($scope.book);
+                            }
+                        });
+                    }
                 }
             });
 

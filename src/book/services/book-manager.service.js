@@ -26,7 +26,13 @@ function BookManagerService(ReadHubResource, READ_BOOK) {
         },
 
         getAll: function () {
-            return BookResource.all(READ_BOOK.url).getList();
+            return BookResource.all(READ_BOOK.url).getList().then(function (books) {
+                _.each(books, function (book) {
+                    book.create_data = new Date(book.create_data);
+                });
+
+                return books;
+            });
         },
 
         get: function (id) {

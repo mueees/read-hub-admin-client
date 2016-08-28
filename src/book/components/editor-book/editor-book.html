@@ -151,11 +151,17 @@
             </div>
             <div class="form-group">
                 <label>
+                    Author description
+                </label>
+
+                <read-tinymce-editor ng-model='book.authorDescription'></read-tinymce-editor>
+            </div>
+            <div class="form-group">
+                <label>
                     Description
                 </label>
 
-                <textarea class="form-control" type="text" name="description" ng-model='book.description'>
-                </textarea>
+                <read-tinymce-editor ng-model='book.description'></read-tinymce-editor>
             </div>
             <div class="form-group">
                 <label>

@@ -50,8 +50,23 @@ module.exports = {
                 loader: 'style!css'
             },
             {
-                test: /\.(svg|jpg|png|ttf|eot|woff|woff2)$/,
+                test: /\.(svg|jpg|png|gif|ttf|eot|woff|woff2)$/,
                 loader: 'file?name=[path][name].[ext]'
+            },
+
+            // just for tinymce
+            {
+                test: require.resolve('tinymce/tinymce'),
+                loaders: [
+                    'imports?this=>window',
+                    'exports?window.tinymce'
+                ]
+            },
+            {
+                test: /tinymce\/(themes|plugins)\//,
+                loaders: [
+                    'imports?this=>window'
+                ]
             }
         ]
     },

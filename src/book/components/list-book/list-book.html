@@ -1,5 +1,9 @@
 <h3>Book List</h3>
 
+<p ng-if="!readConfiguration.books.length">
+    No books.
+</p>
+
 <div class="list-group">
     <div class="list-group-item" ng-repeat="book in readConfiguration.books">
         <div class="row">
