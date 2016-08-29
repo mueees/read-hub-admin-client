@@ -6,12 +6,6 @@
                        required>
             </div>
 
-            <div class="form-group">
-                <textarea type="text" name="description" ng-model="category.description" class="form-control"
-                          placeholder="Description">
-                </textarea>
-            </div>
-
             <div class="form-group" ng-if="readConfiguration.categories.length">
                 <select ng-model="category.parentId">
                     <option value=""></option>
@@ -20,6 +14,12 @@
                         {{category.name}}
                     </option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <textarea type="text" name="description" ng-model="category.description" class="form-control"
+                          placeholder="Description">
+                </textarea>
             </div>
 
             <button ng-disabled="!readAddCategoryForm.$valid" ng-click="create()" type="submit"
