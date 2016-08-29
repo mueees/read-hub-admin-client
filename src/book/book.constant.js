@@ -38,7 +38,22 @@ let BOOK = {
         }
     },
 
-    defaultExist: true,
+    availabilities: [
+        {
+            displayValue: 'Absent',
+            value: 'absent'
+        },
+        {
+            displayValue: 'Available',
+            value: 'available'
+        },
+        {
+            displayValue: 'Booked',
+            value: 'booked'
+        }
+    ],
+
+    defaultAvailability: 'available',
 
     promoLabels: [
         'new',

@@ -11,7 +11,7 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
             let book = {
                 title: '',
                 description: '',
-                exist: READ_BOOK.defaultExist,
+                availability: READ_BOOK.defaultAvailability,
                 authors: [],
                 authorDescription: [],
                 relatedBooks: [],
@@ -48,6 +48,8 @@ function EditorBookDirective(readBookManager, READ_BOOK) {
                 bindings: READ_BOOK.bindings,
 
                 languages: READ_BOOK.languages,
+
+                availabilities: READ_BOOK.availabilities,
 
                 promoLabels: READ_BOOK.promoLabels,
 
