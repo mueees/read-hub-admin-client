@@ -1,84 +1,53 @@
-'use strict';
-
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 
 module.exports = {
-    context: helpers.root('src'),
-
     entry: {
-        vendor: './vendor',
-
-        app: './app',
-
-        // Set up an ES6-ish environment
-        polyfill: 'babel-polyfill'
+        'polyfills': './src/polyfills.ts',
+        'vendor': './src/vendor.ts',
+        'app': './src/main.ts'
     },
 
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfill']
-        }),
-
-        new HtmlWebpackPlugin({
-            template: './index.html'
-        })
-    ],
+    resolve: {
+        extensions: ['', '.js', '.ts']
+    },
 
     module: {
         loaders: [
             {
-                loader: "babel",
-                exclude: [
-                    helpers.root('node_modules'),
-                    helpers.root('src/vendor/')
-                ],
-                test: /\.js$/
+                test: /\.ts$/,
+                loaders: ['awesome-typescript-loader', 'angular-router-loader']
             },
             {
                 test: /\.html$/,
-                loader: 'raw'
+                loader: 'html'
             },
             {
-                test: /\.scss/,
-                include: helpers.root('src'),
-                loader: 'style!css!sass'
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                loader: 'file?name=assets/[name].[hash].[ext]'
             },
             {
                 test: /\.css$/,
-                loader: 'style!css'
+                exclude: helpers.root('src', 'app'),
+                loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
             },
             {
-                test: /\.(svg|jpg|png|gif|ttf|eot|woff|woff2)$/,
-                loader: 'file?name=[path][name].[ext]'
-            },
-
-            // just for tinymce
-            {
-                test: require.resolve('tinymce/tinymce'),
-                loaders: [
-                    'imports?this=>window',
-                    'exports?window.tinymce'
-                ]
-            },
-            {
-                test: /tinymce\/(themes|plugins)\//,
-                loaders: [
-                    'imports?this=>window'
-                ]
+                test: /\.css$/,
+                include: helpers.root('src', 'app'),
+                loader: 'raw'
             }
         ]
     },
 
-    resolve: {
-        modulesDirectories: ['node_modules'],
-        extensions: ['', '.js']
-    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['app', 'vendor', 'polyfills']
+        }),
 
-    resolveLoader: {
-        modulesDirectories: ['node_modules'],
-        moduleTemplates: ['*-loader', '*'],
-        extensions: ['', '.js']
-    }
+        new HtmlWebpackPlugin({
+            template: 'src/index.html'
+        })
+    ]
 };
